@@ -27,8 +27,16 @@ export default function AppNavigator() {
       >
         <Stack.Screen name='Login' component={LoginScreen} />
         <Stack.Screen name='BookList' component={BookListScreen} />
-        <Stack.Screen name='BookDetail' component={BookDetailScreen} />
-        <Stack.Screen name='AddBook' component={AddBookScreen} />
+        <Stack.Screen
+          name='BookDetail'
+          component={BookDetailScreen}
+          options={{ presentation: 'modal' }}
+        />
+        <Stack.Screen
+          name='AddBook'
+          component={AddBookScreen}
+          options={{ presentation: 'modal' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
