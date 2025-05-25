@@ -3,7 +3,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './app/navigation/AppNavigator';
 import { loadFonts } from './app/utils/fonts';
 import { View, Text } from 'react-native';
-import { AuthProvider } from './app/features/auth/context/AuthContext';
+import { AuthProvider } from './app/features/auth/hooks/useAuth';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);

@@ -1,19 +1,20 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
+import { LoginCredentials } from '../types';
+import * as service from '../service';
 
 interface User {
   id: string;
   email: string;
-  name: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  setUser: (user: User | null) => void;
-  setToken: (token: string) => Promise<void>;
   getToken: () => Promise<string | null>;
-  clearToken: () => Promise<void>;
+  signUp: (credentials: LoginCredentials) => Promise<void>;
+  login: (credentials: LoginCredentials) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -45,8 +46,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const signUp = async (credentials: LoginCredentials): Promise<void> => {
+    const res = await service.signUp(credentials);
+    await setToken(res.token);
+    setUser(res.user);
+  };
+
+  const login = async (credentials: LoginCredentials): Promise<void> => {
+    const res = await service.login(credentials);
+    await setToken(res.token);
+    setUser(res.user);
+  };
+
+  const logout = async (): Promise<void> => {
+    const token = await getToken();
+    if (!token) {
+      console.log('No token found, ignoring logout');
+      return;
+    }
+    await service.logout(token);
+    await clearToken();
+    setUser(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, setToken, getToken, clearToken }}>
+    <AuthContext.Provider value={{ user, getToken, signUp, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

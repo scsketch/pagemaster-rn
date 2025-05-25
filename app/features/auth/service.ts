@@ -1,40 +1,22 @@
-import axios from 'axios';
+import { api } from '../../api';
+import { LoginCredentials, LoginResponse, LogoutResponse } from './types';
 
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-interface LoginResponse {
-  token: string;
-  user: {
-    id: string;
-    email: string;
-    name: string;
-  };
-}
-
-export const login = async (credentials: LoginCredentials): Promise<LoginResponse> => {
-  const response = await axios.post<LoginResponse>(
-    'http://localhost:3000/api/v1/auth/login',
-    credentials,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+export const signUp = async (credentials: LoginCredentials): Promise<LoginResponse> => {
+  const response = await api.post<LoginResponse>('auth/signup', credentials);
   return response.data;
 };
 
-export const signUp = async (credentials: LoginCredentials): Promise<LoginResponse> => {
-  const response = await axios.post<LoginResponse>(
-    'http://localhost:3000/api/v1/auth/signup',
-    credentials,
+export const login = async (credentials: LoginCredentials): Promise<LoginResponse> => {
+  const response = await api.post<LoginResponse>('/auth/login', credentials);
+  return response.data;
+};
+
+export const logout = async (token: string): Promise<LogoutResponse> => {
+  const response = await api.post<LogoutResponse>(
+    '/auth/logout',
+    {},
     {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { Authorization: `Bearer ${token}` },
     }
   );
   return response.data;

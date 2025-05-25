@@ -3,12 +3,11 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { login, signUp } from '../service';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 export default function LoginScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { setUser, setToken } = useAuth();
+  const { login, signUp } = useAuth();
   const [email, setEmail] = useState('sam@pagemaster.com');
   const [password, setPassword] = useState('password');
   const [showPassword, setShowPassword] = useState(false);
@@ -22,9 +21,7 @@ export default function LoginScreen() {
 
     setIsLoading(true);
     try {
-      const response = await login({ email, password });
-      setUser(response.user);
-      setToken(response.token);
+      await login({ email, password });
       navigation.navigate('BookList');
     } catch (error) {
       Alert.alert('Login Failed', 'Please check your credentials and try again');
@@ -41,9 +38,7 @@ export default function LoginScreen() {
 
     setIsLoading(true);
     try {
-      const response = await signUp({ email, password });
-      setUser(response.user);
-      setToken(response.token);
+      await signUp({ email, password });
       navigation.navigate('BookList');
     } catch (error) {
       Alert.alert('Sign Up Failed', 'Please check your credentials and try again');

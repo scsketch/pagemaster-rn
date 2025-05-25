@@ -3,40 +3,20 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
-import { Book, getBooks } from '../services/book';
-import { useAuth } from '../../auth/context/AuthContext';
+import { getBooks } from '../service';
+import { Book } from '../types';
+import { useAuth } from '../../auth/hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useBooks } from '../hooks/useBooks';
 
 export default function BookListScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { getToken, setUser, clearToken } = useAuth();
-  const [books, setBooks] = useState<Book[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
-  const fetchBooks = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      const token = await getToken();
-      const fetchedBooks = await getBooks(token);
-      setBooks(fetchedBooks);
-    } catch (err) {
-      setError('Failed to load books. Please try again.');
-      console.error('Error fetching books:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { logout } = useAuth();
+  const { books, isLoading, error } = useBooks();
 
   const handleLogout = () => {
-    setUser(null);
-    clearToken();
+    logout();
     navigation.navigate('Login');
   };
 
@@ -52,21 +32,18 @@ export default function BookListScreen() {
     </TouchableOpacity>
   );
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading books...</Text>
-      </View>
-    );
-  }
-
   if (error) {
     return (
       <View style={styles.container}>
         <Text style={styles.errorText}>{error}</Text>
-        <TouchableOpacity style={styles.retryButton} onPress={fetchBooks}>
-          <Text style={styles.retryButtonText}>Retry</Text>
-        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading books...</Text>
       </View>
     );
   }
