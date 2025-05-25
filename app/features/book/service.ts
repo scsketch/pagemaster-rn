@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { api } from '../../api';
-import { Book, PaginatedBooksResponse } from './types';
+import { AddBookData, Book, PaginatedBooksResponse } from './types';
 
 export async function getBooks(
   token: string | null,
@@ -19,5 +19,18 @@ export async function getBooks(
   };
 
   const res: AxiosResponse<PaginatedBooksResponse> = await api.get('/books', config);
+  return res.data;
+}
+
+export async function createBook(token: string | null, bookData: AddBookData): Promise<Book> {
+  const config: any = {
+    baseURL: 'http://localhost:3000/api/v1',
+  };
+
+  config.headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  const res: AxiosResponse<Book> = await api.post('/books', bookData, config);
   return res.data;
 }

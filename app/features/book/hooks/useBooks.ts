@@ -36,6 +36,17 @@ export const useBooks = () => {
     }
   };
 
+  const addBook = async (bookData: AddBookData): Promise<Book> => {
+    const token = await getToken();
+    if (!token) throw new Error('Unauthorized');
+    const book = await service.createBook(token, bookData);
+
+    // Add new book to the top so it shows up after we add it via the UI and return to the screen
+    setBooks(prev => [...prev, book]);
+
+    return book;
+  };
+
   const fetchNextPage = async () => {
     if (!hasMore || isLoading) return;
     setIsLoading(true);
@@ -65,6 +76,6 @@ export const useBooks = () => {
     hasMore,
     fetchNextPage,
     refresh,
-    // addBook,
+    addBook,
   };
 };
