@@ -1,22 +1,27 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useEffect, useState } from 'react';
-import { getBooks } from '../service';
-import { Book } from '../types';
 import { useAuth } from '../../auth/hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useBooks } from '../hooks/useBooks';
+import { Book } from '../types';
 
 export default function BookListScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { logout } = useAuth();
-  const { books, isLoading, error } = useBooks();
+  const { books, isLoading, isRefreshing, error, hasMore, fetchNextPage, refresh } = useBooks();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigation.navigate('Login');
   };
 
@@ -32,19 +37,31 @@ export default function BookListScreen() {
     </TouchableOpacity>
   );
 
-  if (error) {
+  const renderFooter = () => {
+    if (!hasMore) return null;
     return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>{error}</Text>
+      <View style={styles.footer}>
+        <ActivityIndicator size='small' color='#007AFF' />
       </View>
     );
-  }
+  };
 
-  if (isLoading) {
+  if (error) {
     return (
-      <View style={styles.container}>
-        <Text>Loading books...</Text>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>My Books</Text>
+          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+            <Ionicons name='log-out-outline' size={24} color='#007AFF' />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{error}</Text>
+          <TouchableOpacity style={styles.retryButton} onPress={refresh}>
+            <Text style={styles.retryButtonText}>Retry</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     );
   }
 
@@ -61,6 +78,11 @@ export default function BookListScreen() {
         renderItem={renderBookItem}
         keyExtractor={item => item.bookId}
         contentContainerStyle={styles.listContainer}
+        onEndReached={fetchNextPage}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={renderFooter}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
       />
       <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddBook')}>
         <Text style={styles.addButtonText}>Add Book</Text>
@@ -131,21 +153,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
   errorText: {
     color: '#ff3b30',
     textAlign: 'center',
-    marginTop: 20,
+    marginBottom: 16,
   },
   retryButton: {
     backgroundColor: '#007AFF',
     padding: 12,
     borderRadius: 8,
-    marginTop: 16,
-    alignSelf: 'center',
   },
   retryButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  footer: {
+    paddingVertical: 20,
+    alignItems: 'center',
   },
 });
