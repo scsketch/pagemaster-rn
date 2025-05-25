@@ -14,11 +14,9 @@ export async function getBooks(token?: string | null): Promise<Book[]> {
     baseURL: 'http://localhost:3000/api/v1',
   };
 
-  if (Platform.OS !== 'web' && token) {
-    config.headers = {
-      Authorization: `Bearer ${token}`,
-    };
-  }
+  config.headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
   const response = await axios.get('/books', config);
   return response.data;

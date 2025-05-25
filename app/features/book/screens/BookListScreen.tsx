@@ -5,10 +5,12 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
 import { Book, getBooks } from '../services/book';
 import { useAuth } from '../../auth/context/AuthContext';
+import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function BookListScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { getToken } = useAuth();
+  const { getToken, setUser, clearToken } = useAuth();
   const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +32,12 @@ export default function BookListScreen() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    clearToken();
+    navigation.navigate('Login');
   };
 
   const renderBookItem = ({ item }: { item: Book }) => (
@@ -64,7 +72,13 @@ export default function BookListScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>My Books</Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Ionicons name='log-out-outline' size={24} color='#007AFF' />
+        </TouchableOpacity>
+      </View>
       <FlatList
         data={books}
         renderItem={renderBookItem}
@@ -74,7 +88,7 @@ export default function BookListScreen() {
       <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddBook')}>
         <Text style={styles.addButtonText}>Add Book</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -82,6 +96,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#333',
+  },
+  logoutButton: {
+    padding: 8,
   },
   listContainer: {
     padding: 16,
