@@ -10,9 +10,13 @@ import GenreFilters from './GenreFilters';
 const BookListHeader = ({
   search,
   setSearch,
+  genreFilter,
+  setGenreFilter,
 }: {
   search: string;
   setSearch: (search: string) => void;
+  genreFilter: string;
+  setGenreFilter: (genre: string) => void;
 }) => {
   const { logout } = useAuth();
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -32,22 +36,24 @@ const BookListHeader = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <Ionicons name='search' size={20} color='#666' style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchInput}
-          value={search}
-          onChangeText={setSearch}
-          placeholder='Search books...'
-          placeholderTextColor='#666'
-          autoCapitalize='none'
-          autoCorrect={false}
-        />
+      <View style={styles.headerRow}>
+        <View style={styles.searchContainer}>
+          <Ionicons name='search' size={20} color='#666' style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchInput}
+            value={search}
+            onChangeText={setSearch}
+            placeholder='Search books...'
+            placeholderTextColor='#666'
+            autoCapitalize='none'
+            autoCorrect={false}
+          />
+        </View>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Ionicons name='log-out-outline' size={24} color='#007AFF' />
+        </TouchableOpacity>
       </View>
-      <GenreFilters />
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Ionicons name='log-out-outline' size={24} color='#007AFF' />
-      </TouchableOpacity>
+      <GenreFilters genreFilter={genreFilter} setGenreFilter={setGenreFilter} />
     </View>
   );
 };
@@ -58,12 +64,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 12,
+  },
   searchContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#f8f8f8',
     borderRadius: 8,
-    margin: 16,
     paddingHorizontal: 12,
   },
   searchIcon: {
@@ -76,9 +89,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   logoutButton: {
-    position: 'absolute',
-    top: 16,
-    right: 16,
+    padding: 4,
   },
 });
 

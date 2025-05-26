@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../../auth/hooks/useAuth';
 import * as service from '../service';
-import { AddBookData, Book, PaginatedBooksResponse } from '../types';
+import { AddBookData, Book, Genre, PaginatedBooksResponse } from '../types';
 import { useState } from 'react';
 import { useDebounceSearch } from '../../../hooks/useDebounceSearch';
 
@@ -10,6 +10,7 @@ export const useBooks = () => {
   const queryClient = useQueryClient();
 
   const { search, setSearch, debouncedSearch } = useDebounceSearch();
+  const [genreFilter, setGenreFilter] = useState('');
 
   const {
     data: booksData,
@@ -20,13 +21,11 @@ export const useBooks = () => {
     fetchNextPage,
     refetch: refresh,
   } = useInfiniteQuery<PaginatedBooksResponse, Error>({
-    queryKey: ['books', debouncedSearch],
+    queryKey: ['books', debouncedSearch, genreFilter],
     queryFn: async ({ pageParam = 1 }) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      return debouncedSearch
-        ? service.searchBooks(token, debouncedSearch, pageParam as number)
-        : service.getBooks(token, pageParam as number);
+      return service.getBooks(token, pageParam as number, debouncedSearch, genreFilter);
     },
     getNextPageParam: lastPage => {
       if (lastPage.page < lastPage.totalPages) {
@@ -46,7 +45,7 @@ export const useBooks = () => {
       return service.getBook(token, bookId);
     },
     onSuccess: book => {
-      queryClient.setQueryData(['books', debouncedSearch], (old: any) => {
+      queryClient.setQueryData(['books', debouncedSearch, genreFilter], (old: any) => {
         if (!old) return { pages: [{ data: [book] }] };
 
         const pageIndex = old.pages.findIndex((page: any) =>
@@ -199,5 +198,7 @@ export const useBooks = () => {
     updateBook,
     search,
     setSearch,
+    genreFilter,
+    setGenreFilter,
   };
 };

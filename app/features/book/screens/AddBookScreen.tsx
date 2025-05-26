@@ -73,7 +73,6 @@ export default function AddBookScreen() {
     },
   });
 
-  console.log('bookId', bookId);
   useEffect(() => {
     if (bookId) {
       fetchBook(bookId);

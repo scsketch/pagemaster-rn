@@ -24,12 +24,27 @@ import BookListHeader from '../components/BookListHeader';
 export default function BookListScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const { books, isLoading, isRefreshing, hasMore, fetchNextPage, refresh, search, setSearch } =
-    useBooks();
+  const {
+    books,
+    isLoading,
+    isRefreshing,
+    hasMore,
+    fetchNextPage,
+    refresh,
+    search,
+    setSearch,
+    genreFilter,
+    setGenreFilter,
+  } = useBooks();
 
   return (
     <SafeAreaView style={styles.container}>
-      <BookListHeader search={search} setSearch={setSearch} />
+      <BookListHeader
+        search={search}
+        setSearch={setSearch}
+        genreFilter={genreFilter}
+        setGenreFilter={setGenreFilter}
+      />
       <BookList
         books={books}
         isLoading={isLoading}

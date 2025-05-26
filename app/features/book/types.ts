@@ -55,6 +55,13 @@ export interface Book {
   description: string;
 }
 
+export interface PaginatedBooksParams {
+  page: number;
+  limit: number;
+  search?: string;
+  genre?: string;
+}
+
 export interface PaginatedBooksResponse {
   data: Book[];
   total: number;

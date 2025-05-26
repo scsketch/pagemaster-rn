@@ -1,17 +1,29 @@
 import { AxiosResponse } from 'axios';
 import { api } from '../../api';
-import { AddBookData, Book, PaginatedBooksResponse } from './types';
+import { AddBookData, Book, PaginatedBooksParams, PaginatedBooksResponse } from './types';
 
 export async function getBooks(
   token: string | null,
-  page: number = 1
+  page: number = 1,
+  search?: string,
+  genre?: string
 ): Promise<PaginatedBooksResponse> {
+  let params: PaginatedBooksParams = {
+    page,
+    limit: 10,
+  };
+
+  if (search) {
+    params.search = search;
+  }
+
+  if (genre) {
+    params.genre = genre;
+  }
+
   const config: any = {
     baseURL: 'http://localhost:3000/api/v1',
-    params: {
-      page,
-      limit: 20,
-    },
+    params,
   };
 
   config.headers = {
@@ -62,27 +74,5 @@ export async function updateBook(
   };
 
   const res: AxiosResponse<Book> = await api.patch(`/books/${bookId}`, bookData, config);
-  return res.data;
-}
-
-export async function searchBooks(
-  token: string | null,
-  query: string,
-  page: number = 1
-): Promise<PaginatedBooksResponse> {
-  const config: any = {
-    baseURL: 'http://localhost:3000/api/v1',
-    params: {
-      page,
-      limit: 20,
-      search: query,
-    },
-  };
-
-  config.headers = {
-    Authorization: `Bearer ${token}`,
-  };
-
-  const res: AxiosResponse<PaginatedBooksResponse> = await api.get('/books', config);
   return res.data;
 }

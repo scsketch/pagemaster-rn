@@ -22,8 +22,6 @@ export default function BookDetailScreen() {
   const { books, fetchBook } = useBooks();
   const book = books.find(b => b.bookId === bookId);
 
-  console.log('BOOK: ', book);
-
   useEffect(() => {
     fetchBook(bookId);
   }, []);

@@ -3,7 +3,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { GENRE_LIST, getGenreIcon } from '../types';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const GenreFilters = () => {
+const GenreFilters = ({
+  genreFilter,
+  setGenreFilter,
+}: {
+  genreFilter: string;
+  setGenreFilter: (genre: string) => void;
+}) => {
   return (
     <View style={styles.wrapper}>
       <LinearGradient
@@ -17,12 +23,17 @@ const GenreFilters = () => {
         showsHorizontalScrollIndicator={true}
         contentContainerStyle={styles.container}
       >
-        <TouchableOpacity style={styles.genreButton}>
-          <Ionicons name='apps' size={20} color='#666' />
-        </TouchableOpacity>
         {GENRE_LIST.map(genre => (
-          <TouchableOpacity key={genre} style={styles.genreButton}>
-            <Ionicons name={getGenreIcon(genre)} size={20} color='#666' />
+          <TouchableOpacity
+            key={genre}
+            style={styles.genreButton}
+            onPress={() => setGenreFilter(genreFilter === genre ? '' : genre)}
+          >
+            <Ionicons
+              name={getGenreIcon(genre)}
+              size={20}
+              color={genreFilter === genre ? '#007AFF' : '#666'}
+            />
           </TouchableOpacity>
         ))}
       </ScrollView>
