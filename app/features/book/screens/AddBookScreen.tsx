@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useBooks } from '../hooks/useBooks';
 import { useEffect } from 'react';
-import { Book } from '../types';
+import { Book, Genre } from '../types';
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -97,7 +97,7 @@ export default function AddBookScreen() {
       const bookData = {
         title: data.title,
         author: data.author,
-        genre: data.genre,
+        genre: data.genre as Genre,
         price: parseFloat(data.price),
         description: data.description,
       };

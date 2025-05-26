@@ -56,5 +56,4 @@ const BookListItem = React.memo(({ book }: { book: Book }) => {
     </TouchableOpacity>
   );
 });
-
 export default BookListItem;
