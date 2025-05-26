@@ -123,6 +123,7 @@ export default function AddBookScreen() {
                 value={value}
                 onChangeText={onChange}
                 placeholder='Title'
+                autoCorrect={false}
               />
               {errors.title && <Text style={styles.errorText}>{errors.title.message}</Text>}
             </View>
@@ -138,6 +139,7 @@ export default function AddBookScreen() {
                 value={value}
                 onChangeText={onChange}
                 placeholder='Author'
+                autoCorrect={false}
               />
               {errors.author && <Text style={styles.errorText}>{errors.author.message}</Text>}
             </View>
@@ -153,6 +155,7 @@ export default function AddBookScreen() {
                 value={value}
                 onChangeText={onChange}
                 placeholder='Genre'
+                autoCorrect={false}
               />
               {errors.genre && <Text style={styles.errorText}>{errors.genre.message}</Text>}
             </View>
@@ -169,6 +172,7 @@ export default function AddBookScreen() {
                 onChangeText={onChange}
                 placeholder='Price'
                 keyboardType='decimal-pad'
+                autoCorrect={false}
               />
               {errors.price && <Text style={styles.errorText}>{errors.price.message}</Text>}
             </View>
@@ -186,6 +190,7 @@ export default function AddBookScreen() {
                 placeholder='Description'
                 multiline
                 numberOfLines={4}
+                autoCorrect={false}
               />
             </View>
           )}

@@ -46,7 +46,7 @@ export const useBooks = () => {
       return service.getBook(token, bookId);
     },
     onSuccess: book => {
-      queryClient.setQueryData(['books'], (old: any) => {
+      queryClient.setQueryData(['books', debouncedSearch], (old: any) => {
         if (!old) return { pages: [{ data: [book] }] };
 
         const pageIndex = old.pages.findIndex((page: any) =>
@@ -81,6 +81,46 @@ export const useBooks = () => {
           }),
         };
       });
+
+      if (debouncedSearch) {
+        queryClient.setQueryData(['books', ''], (old: any) => {
+          if (!old) return { pages: [{ data: [book] }] };
+
+          const pageIndex = old.pages.findIndex((page: any) =>
+            page.data.some((b: Book) => b.bookId === book.bookId)
+          );
+
+          if (pageIndex === -1) {
+            return {
+              ...old,
+              pages: old.pages.map((page: any, index: number) => {
+                if (index === 0) {
+                  return {
+                    ...page,
+                    data: [book, ...page.data],
+                  };
+                }
+                return page;
+              }),
+            };
+          }
+
+          return {
+            ...old,
+            pages: old.pages.map((page: any, index: number) => {
+              if (index === pageIndex) {
+                return {
+                  ...page,
+                  data: page.data.map((b: Book) => (b.bookId === book.bookId ? book : b)),
+                };
+              }
+              return page;
+            }),
+          };
+        });
+      }
+
+      queryClient.setQueryData(['book', book.bookId], book);
     },
   });
 
@@ -116,30 +156,33 @@ export const useBooks = () => {
       return service.updateBook(token, bookId, bookData);
     },
     onSuccess: updatedBook => {
-      queryClient.setQueryData(['books'], (old: any) => {
+      queryClient.setQueryData(['books', debouncedSearch], (old: any) => {
         if (!old) return { pages: [{ data: [updatedBook] }] };
-
-        const pageIndex = old.pages.findIndex((page: any) =>
-          page.data.some((b: Book) => b.bookId === updatedBook.bookId)
-        );
-
-        if (pageIndex === -1) return old;
 
         return {
           ...old,
-          pages: old.pages.map((page: any, index: number) => {
-            if (index === pageIndex) {
-              return {
-                ...page,
-                data: page.data.map((b: Book) =>
-                  b.bookId === updatedBook.bookId ? updatedBook : b
-                ),
-              };
-            }
-            return page;
-          }),
+          pages: old.pages.map((page: any) => ({
+            ...page,
+            data: page.data.map((b: Book) => (b.bookId === updatedBook.bookId ? updatedBook : b)),
+          })),
         };
       });
+
+      if (debouncedSearch) {
+        queryClient.setQueryData(['books', ''], (old: any) => {
+          if (!old) return { pages: [{ data: [updatedBook] }] };
+
+          return {
+            ...old,
+            pages: old.pages.map((page: any) => ({
+              ...page,
+              data: page.data.map((b: Book) => (b.bookId === updatedBook.bookId ? updatedBook : b)),
+            })),
+          };
+        });
+      }
+
+      queryClient.setQueryData(['book', updatedBook.bookId], updatedBook);
     },
   });
 
