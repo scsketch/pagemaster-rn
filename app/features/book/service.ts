@@ -10,7 +10,7 @@ export async function getBooks(
     baseURL: 'http://localhost:3000/api/v1',
     params: {
       page,
-      limit: 10,
+      limit: 20,
     },
   };
 

@@ -65,9 +65,9 @@ export default function BookDetailScreen() {
             <Text style={styles.detailLabel}>Price</Text>
             <Text style={styles.detailValue}>${book.price.toFixed(2)}</Text>
           </View>
-          <View style={styles.detailRow}>
+          <View style={styles.descriptionContainer}>
             <Text style={styles.detailLabel}>Description</Text>
-            <Text style={styles.detailValue}>{book.description ?? '<No Description>'}</Text>
+            <Text style={styles.descriptionText}>{book.description ?? '<No Description>'}</Text>
           </View>
         </View>
       </View>
@@ -148,5 +148,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  descriptionContainer: {
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  descriptionText: {
+    fontSize: 16,
+    color: '#333',
+    marginTop: 8,
+    lineHeight: 24,
   },
 });

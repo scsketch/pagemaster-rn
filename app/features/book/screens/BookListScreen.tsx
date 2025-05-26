@@ -60,7 +60,7 @@ export default function BookListScreen() {
         keyExtractor={item => item.bookId}
         contentContainerStyle={styles.listContainer}
         onEndReached={() => {
-          if (!isLoading && hasMore) {
+          if (!isLoading && !isRefreshing && hasMore) {
             fetchNextPage();
           }
         }}
@@ -68,6 +68,8 @@ export default function BookListScreen() {
         ListFooterComponent={renderFooter}
         refreshing={isRefreshing}
         onRefresh={refresh}
+        maxToRenderPerBatch={10}
+        windowSize={10}
       />
       <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddBook', {})}>
         <Text style={styles.addButtonText}>Add Book</Text>
