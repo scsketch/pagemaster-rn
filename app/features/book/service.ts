@@ -22,7 +22,6 @@ export async function getBooks(
   }
 
   const config: any = {
-    baseURL: 'http://localhost:3000/api/v1',
     params,
   };
 
@@ -35,9 +34,7 @@ export async function getBooks(
 }
 
 export async function getBook(token: string | null, bookId: string): Promise<Book> {
-  const config: any = {
-    baseURL: 'http://localhost:3000/api/v1',
-  };
+  const config: any = {};
 
   config.headers = {
     Authorization: `Bearer ${token}`,
@@ -48,9 +45,7 @@ export async function getBook(token: string | null, bookId: string): Promise<Boo
 }
 
 export async function createBook(token: string | null, bookData: AddBookData): Promise<Book> {
-  const config: any = {
-    baseURL: 'http://localhost:3000/api/v1',
-  };
+  const config: any = {};
 
   config.headers = {
     Authorization: `Bearer ${token}`,
@@ -65,9 +60,7 @@ export async function updateBook(
   bookId: string,
   bookData: AddBookData
 ): Promise<Book> {
-  const config: any = {
-    baseURL: 'http://localhost:3000/api/v1',
-  };
+  const config: any = {};
 
   config.headers = {
     Authorization: `Bearer ${token}`,
