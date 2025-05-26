@@ -23,4 +23,5 @@ export interface AddBookData {
   author: string;
   genre: string;
   price: number;
+  description?: string;
 }

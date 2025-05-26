@@ -103,6 +103,40 @@ export const useBooks = () => {
     },
   });
 
+  const { mutateAsync: updateBook } = useMutation({
+    mutationFn: async ({ bookId, bookData }: { bookId: string; bookData: AddBookData }) => {
+      const token = await getToken();
+      if (!token) throw new Error('Unauthorized');
+      return service.updateBook(token, bookId, bookData);
+    },
+    onSuccess: updatedBook => {
+      queryClient.setQueryData(['books'], (old: any) => {
+        if (!old) return { pages: [{ data: [updatedBook] }] };
+
+        const pageIndex = old.pages.findIndex((page: any) =>
+          page.data.some((b: Book) => b.bookId === updatedBook.bookId)
+        );
+
+        if (pageIndex === -1) return old;
+
+        return {
+          ...old,
+          pages: old.pages.map((page: any, index: number) => {
+            if (index === pageIndex) {
+              return {
+                ...page,
+                data: page.data.map((b: Book) =>
+                  b.bookId === updatedBook.bookId ? updatedBook : b
+                ),
+              };
+            }
+            return page;
+          }),
+        };
+      });
+    },
+  });
+
   return {
     books,
     isLoading,
@@ -113,5 +147,6 @@ export const useBooks = () => {
     fetchBook,
     refresh,
     addBook,
+    updateBook,
   };
 };

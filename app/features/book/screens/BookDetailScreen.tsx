@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useBooks } from '../hooks/useBooks';
 import { useEffect } from 'react';
+import { Book } from '../types';
+import React from 'react';
 
 export default function BookDetailScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -12,8 +14,6 @@ export default function BookDetailScreen() {
   const { bookId } = route.params as { bookId: string };
   const { books, fetchBook } = useBooks();
   const book = books.find(b => b.bookId === bookId);
-
-  console.log('BOOK DETAIL', book);
 
   useEffect(() => {
     fetchBook(bookId);
@@ -43,14 +43,16 @@ export default function BookDetailScreen() {
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <Ionicons name='close' size={24} color='#333' />
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => navigation.navigate('AddBook', { bookId })}
+        >
+          <Text style={styles.editButtonText}>Edit</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.content}>
         <Text style={styles.title}>{book.title}</Text>
         <View style={styles.detailsContainer}>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Id</Text>
-            <Text style={styles.detailValue}>{book.bookId}</Text>
-          </View>
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Author</Text>
             <Text style={styles.detailValue}>{book.author}</Text>
@@ -63,10 +65,10 @@ export default function BookDetailScreen() {
             <Text style={styles.detailLabel}>Price</Text>
             <Text style={styles.detailValue}>${book.price.toFixed(2)}</Text>
           </View>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Description</Text>
-          <Text style={styles.detailValue}>{book.description ?? '<No Description>'}</Text>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailLabel}>Description</Text>
+            <Text style={styles.detailValue}>{book.description ?? '<No Description>'}</Text>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
@@ -88,6 +90,14 @@ const styles = StyleSheet.create({
   },
   backButton: {
     padding: 8,
+  },
+  editButton: {
+    padding: 8,
+  },
+  editButtonText: {
+    color: '#007AFF',
+    fontSize: 16,
+    fontWeight: '600',
   },
   content: {
     padding: 20,

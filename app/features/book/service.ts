@@ -47,3 +47,20 @@ export async function createBook(token: string | null, bookData: AddBookData): P
   const res: AxiosResponse<Book> = await api.post('/books', bookData, config);
   return res.data;
 }
+
+export async function updateBook(
+  token: string | null,
+  bookId: string,
+  bookData: AddBookData
+): Promise<Book> {
+  const config: any = {
+    baseURL: 'http://localhost:3000/api/v1',
+  };
+
+  config.headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  const res: AxiosResponse<Book> = await api.patch(`/books/${bookId}`, bookData, config);
+  return res.data;
+}

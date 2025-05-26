@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Book } from '../features/book/types';
 
 import LoginScreen from '../features/auth/screens/LoginScreen';
 import BookListScreen from '../features/book/screens/BookListScreen';
@@ -11,7 +12,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   BookList: undefined;
   BookDetail: { bookId: string };
-  AddBook: undefined;
+  AddBook: { bookId?: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

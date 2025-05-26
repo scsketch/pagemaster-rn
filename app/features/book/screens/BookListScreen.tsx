@@ -69,7 +69,7 @@ export default function BookListScreen() {
         refreshing={isRefreshing}
         onRefresh={refresh}
       />
-      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddBook')}>
+      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddBook', {})}>
         <Text style={styles.addButtonText}>Add Book</Text>
       </TouchableOpacity>
     </SafeAreaView>
