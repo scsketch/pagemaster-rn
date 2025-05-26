@@ -6,6 +6,8 @@ export interface Book {
   author: string;
   genre: string;
   price: number;
+
+  description?: string; // This is filled out when we get details
 }
 
 export interface PaginatedBooksResponse {

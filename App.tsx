@@ -4,6 +4,17 @@ import AppNavigator from './app/navigation/AppNavigator';
 import { loadFonts } from './app/utils/fonts';
 import { View, Text } from 'react-native';
 import { AuthProvider } from './app/features/auth/hooks/useAuth';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1,
+    },
+  },
+});
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -31,10 +42,12 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
-      <SafeAreaProvider>
-        <AppNavigator />
-      </SafeAreaProvider>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <SafeAreaProvider>
+          <AppNavigator />
+        </SafeAreaProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }

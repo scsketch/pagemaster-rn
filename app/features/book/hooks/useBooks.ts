@@ -1,80 +1,116 @@
-import { useEffect, useState } from 'react';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../../auth/hooks/useAuth';
 import * as service from '../service';
 import { AddBookData, Book, PaginatedBooksResponse } from '../types';
 
 export const useBooks = () => {
   const { getToken } = useAuth();
-  const [books, setBooks] = useState<Book[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const queryClient = useQueryClient();
 
-  const fetchBooks = async (page: number = 1) => {
-    try {
+  const {
+    data: booksData,
+    isLoading,
+    isFetchingNextPage,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    refetch: refresh,
+  } = useInfiniteQuery<PaginatedBooksResponse, Error>({
+    queryKey: ['books'],
+    queryFn: async ({ pageParam = 1 }) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      const response = await service.getBooks(token, page);
-
-      if (page === 1) {
-        setBooks(response.data);
-      } else {
-        setBooks(prev => [...prev, ...response.data]);
+      return service.getBooks(token, pageParam as number);
+    },
+    getNextPageParam: lastPage => {
+      if (lastPage.page < lastPage.totalPages) {
+        return lastPage.page + 1;
       }
+      return undefined;
+    },
+    initialPageParam: 1,
+  });
 
-      setHasMore(page < response.totalPages);
-      setCurrentPage(page);
-      setError(null);
-    } catch (err) {
-      setError('Failed to load books. Please try again.');
-      console.error('Error fetching books:', err);
-    } finally {
-      setIsLoading(false);
-      setIsRefreshing(false);
-    }
-  };
+  const books = booksData?.pages.flatMap(page => page.data) ?? [];
 
-  const addBook = async (bookData: AddBookData): Promise<Book> => {
-    const token = await getToken();
-    if (!token) throw new Error('Unauthorized');
-    const book = await service.createBook(token, bookData);
+  const { mutateAsync: fetchBook } = useMutation({
+    mutationFn: async (bookId: string) => {
+      const token = await getToken();
+      if (!token) throw new Error('Unauthorized');
+      return service.getBook(token, bookId);
+    },
+    onSuccess: book => {
+      queryClient.setQueryData(['books'], (old: any) => {
+        if (!old) return { pages: [{ data: [book] }] };
 
-    // Add new book to the top so it shows up after we add it via the UI and return to the screen
-    setBooks(prev => [...prev, book]);
+        const pageIndex = old.pages.findIndex((page: any) =>
+          page.data.some((b: Book) => b.bookId === book.bookId)
+        );
 
-    return book;
-  };
+        if (pageIndex === -1) {
+          return {
+            ...old,
+            pages: old.pages.map((page: any, index: number) => {
+              if (index === 0) {
+                return {
+                  ...page,
+                  data: [book, ...page.data],
+                };
+              }
+              return page;
+            }),
+          };
+        }
 
-  const fetchNextPage = async () => {
-    if (!hasMore || isLoading) return;
-    setIsLoading(true);
-    await fetchBooks(currentPage + 1);
-  };
+        return {
+          ...old,
+          pages: old.pages.map((page: any, index: number) => {
+            if (index === pageIndex) {
+              return {
+                ...page,
+                data: page.data.map((b: Book) => (b.bookId === book.bookId ? book : b)),
+              };
+            }
+            return page;
+          }),
+        };
+      });
+    },
+  });
 
-  const refresh = async () => {
-    setIsRefreshing(true);
-    await fetchBooks(1);
-  };
-
-  useEffect(() => {
-    fetchBooks(1);
-  }, []);
-
-  // const addBook = async (bookData: AddBookData): Promise<Book> => {
-  //   // const token = await getToken();
-  //   // if (!token) throw new Error('No token found');
-  //   // const res = await service.createBook(token, bookData);
-  // };
+  const { mutateAsync: addBook } = useMutation({
+    mutationFn: async (bookData: AddBookData) => {
+      const token = await getToken();
+      if (!token) throw new Error('Unauthorized');
+      return service.createBook(token, bookData);
+    },
+    onSuccess: newBook => {
+      queryClient.setQueryData(['books'], (old: any) => {
+        if (!old) return { pages: [{ data: [newBook] }] };
+        return {
+          ...old,
+          pages: old.pages.map((page: any, index: number) => {
+            if (index === 0) {
+              return {
+                ...page,
+                data: [newBook, ...page.data],
+              };
+            }
+            return page;
+          }),
+        };
+      });
+    },
+  });
 
   return {
     books,
     isLoading,
-    isRefreshing,
-    error,
-    hasMore,
+    isRefreshing: isFetchingNextPage,
+    error: error ? 'Failed to load books. Please try again.' : null,
+    hasMore: !!hasNextPage,
     fetchNextPage,
+    fetchBook,
     refresh,
     addBook,
   };

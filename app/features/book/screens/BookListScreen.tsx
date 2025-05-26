@@ -46,25 +46,6 @@ export default function BookListScreen() {
     );
   };
 
-  if (error) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>My Books</Text>
-          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-            <Ionicons name='log-out-outline' size={24} color='#007AFF' />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{error}</Text>
-          <TouchableOpacity style={styles.retryButton} onPress={refresh}>
-            <Text style={styles.retryButtonText}>Retry</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -78,7 +59,11 @@ export default function BookListScreen() {
         renderItem={renderBookItem}
         keyExtractor={item => item.bookId}
         contentContainerStyle={styles.listContainer}
-        onEndReached={fetchNextPage}
+        onEndReached={() => {
+          if (!isLoading && hasMore) {
+            fetchNextPage();
+          }
+        }}
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}
         refreshing={isRefreshing}

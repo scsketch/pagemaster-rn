@@ -22,6 +22,19 @@ export async function getBooks(
   return res.data;
 }
 
+export async function getBook(token: string | null, bookId: string): Promise<Book> {
+  const config: any = {
+    baseURL: 'http://localhost:3000/api/v1',
+  };
+
+  config.headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  const res: AxiosResponse<Book> = await api.get(`/books/${bookId}`, config);
+  return res.data;
+}
+
 export async function createBook(token: string | null, bookData: AddBookData): Promise<Book> {
   const config: any = {
     baseURL: 'http://localhost:3000/api/v1',
