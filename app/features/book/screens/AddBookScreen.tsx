@@ -19,6 +19,19 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import BackButtonX from '../../../components/BackButtonX';
+import Picker from '../../../components/Picker';
+
+const GENRE_OPTIONS = [
+  'Adventure',
+  'Biography',
+  'Fantasy',
+  'Fiction',
+  'Historical',
+  'Horror',
+  'Mystery',
+  'Non-Fiction',
+  'Sci-Fi',
+] as const;
 
 const bookSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -150,12 +163,11 @@ export default function AddBookScreen() {
           name='genre'
           render={({ field: { onChange, value } }) => (
             <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
+              <Picker
                 value={value}
-                onChangeText={onChange}
-                placeholder='Genre'
-                autoCorrect={false}
+                onValueChange={onChange}
+                items={GENRE_OPTIONS}
+                placeholder='Select a genre'
               />
               {errors.genre && <Text style={styles.errorText}>{errors.genre.message}</Text>}
             </View>

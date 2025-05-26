@@ -38,9 +38,24 @@ export default StyleSheet.create({
     fontWeight: '600',
     color: '#333',
   },
+  authorGenreRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   bookAuthor: {
     fontSize: 14,
     color: '#666',
+  },
+  genreContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  bookGenre: {
+    fontSize: 14,
+    color: '#666',
+    fontStyle: 'italic',
   },
   addButton: {
     position: 'absolute',
