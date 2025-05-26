@@ -2,11 +2,18 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
 import { useBooks } from '../hooks/useBooks';
 import { useEffect } from 'react';
-import { Book } from '../types';
 import React from 'react';
+import styles from '../styles/styles.detail';
+import BackButtonX from '../../../components/BackButtonX';
+
+const BookDetail = ({ label, value }: { label: string; value: string }) => (
+  <View style={styles.detailRow}>
+    <Text style={styles.detailLabel}>{label}</Text>
+    <Text style={styles.detailValue}>{value}</Text>
+  </View>
+);
 
 export default function BookDetailScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -22,16 +29,9 @@ export default function BookDetailScreen() {
   if (!book) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Ionicons name='close' size={24} color='#333' />
-          </TouchableOpacity>
-        </View>
+        <BackButtonX />
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>Book not found</Text>
-          <TouchableOpacity style={styles.retryButton} onPress={() => navigation.goBack()}>
-            <Text style={styles.retryButtonText}>Go Back</Text>
-          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
@@ -40,9 +40,7 @@ export default function BookDetailScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Ionicons name='close' size={24} color='#333' />
-        </TouchableOpacity>
+        <BackButtonX />
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => navigation.navigate('AddBook', { bookId })}
@@ -53,111 +51,15 @@ export default function BookDetailScreen() {
       <View style={styles.content}>
         <Text style={styles.title}>{book.title}</Text>
         <View style={styles.detailsContainer}>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Author</Text>
-            <Text style={styles.detailValue}>{book.author}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Genre</Text>
-            <Text style={styles.detailValue}>{book.genre}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Price</Text>
-            <Text style={styles.detailValue}>${book.price.toFixed(2)}</Text>
-          </View>
+          <BookDetail label='Author' value={book.author} />
+          <BookDetail label='Genre' value={book.genre} />
+          <BookDetail label='Price' value={`$${book.price.toFixed(2)}`} />
           <View style={styles.descriptionContainer}>
             <Text style={styles.detailLabel}>Description</Text>
-            <Text style={styles.descriptionText}>{book.description ?? '<No Description>'}</Text>
+            <Text style={styles.descriptionText}>{book.description ?? 'None'}</Text>
           </View>
         </View>
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  backButton: {
-    padding: 8,
-  },
-  editButton: {
-    padding: 8,
-  },
-  editButtonText: {
-    color: '#007AFF',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  content: {
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 24,
-  },
-  detailsContainer: {
-    gap: 16,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  detailLabel: {
-    fontSize: 16,
-    color: '#666',
-  },
-  detailValue: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  errorText: {
-    color: '#ff3b30',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  retryButton: {
-    backgroundColor: '#007AFF',
-    padding: 12,
-    borderRadius: 8,
-  },
-  retryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  descriptionContainer: {
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  descriptionText: {
-    fontSize: 16,
-    color: '#333',
-    marginTop: 8,
-    lineHeight: 24,
-  },
-});

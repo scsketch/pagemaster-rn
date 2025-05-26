@@ -18,6 +18,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import BackButtonX from '../../../components/BackButtonX';
 
 const bookSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -105,9 +106,7 @@ export default function AddBookScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Ionicons name='close' size={24} color='#333' />
-        </TouchableOpacity>
+        <BackButtonX />
         <Text style={styles.headerTitle}>{isEditing ? 'Edit Book' : 'Add Book'}</Text>
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
           <Text style={styles.submitButtonText}>{isEditing ? 'Save' : 'Add'}</Text>

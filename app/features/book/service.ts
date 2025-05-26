@@ -64,3 +64,25 @@ export async function updateBook(
   const res: AxiosResponse<Book> = await api.patch(`/books/${bookId}`, bookData, config);
   return res.data;
 }
+
+export async function searchBooks(
+  token: string | null,
+  query: string,
+  page: number = 1
+): Promise<PaginatedBooksResponse> {
+  const config: any = {
+    baseURL: 'http://localhost:3000/api/v1',
+    params: {
+      page,
+      limit: 20,
+      search: query,
+    },
+  };
+
+  config.headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  const res: AxiosResponse<PaginatedBooksResponse> = await api.get('/books', config);
+  return res.data;
+}

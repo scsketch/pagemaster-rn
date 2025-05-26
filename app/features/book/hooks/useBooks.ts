@@ -2,10 +2,14 @@ import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-q
 import { useAuth } from '../../auth/hooks/useAuth';
 import * as service from '../service';
 import { AddBookData, Book, PaginatedBooksResponse } from '../types';
+import { useState } from 'react';
+import { useDebounceSearch } from '../../../hooks/useDebounceSearch';
 
 export const useBooks = () => {
   const { getToken } = useAuth();
   const queryClient = useQueryClient();
+
+  const { search, setSearch, debouncedSearch } = useDebounceSearch();
 
   const {
     data: booksData,
@@ -16,11 +20,13 @@ export const useBooks = () => {
     fetchNextPage,
     refetch: refresh,
   } = useInfiniteQuery<PaginatedBooksResponse, Error>({
-    queryKey: ['books'],
+    queryKey: ['books', debouncedSearch],
     queryFn: async ({ pageParam = 1 }) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      return service.getBooks(token, pageParam as number);
+      return debouncedSearch
+        ? service.searchBooks(token, debouncedSearch, pageParam as number)
+        : service.getBooks(token, pageParam as number);
     },
     getNextPageParam: lastPage => {
       if (lastPage.page < lastPage.totalPages) {
@@ -148,5 +154,7 @@ export const useBooks = () => {
     refresh,
     addBook,
     updateBook,
+    search,
+    setSearch,
   };
 };
