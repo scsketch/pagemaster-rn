@@ -34,7 +34,7 @@ cp .env.example .env
 
 ## Run on the web
 
-This was made as mobile first but you can test it in a browser.
+This was made as mobile first but you can test it in a browser. Use your browser's dev tools try to different responsive sizes.
 
 ```bash
 npm run web
@@ -51,7 +51,7 @@ _IMPORTANT:_ Make sure your mobile device is on the same WiFi network as your co
 Replace `EXPO_PUBLIC_API_URL` in the `.env` file with your local IP, so it looks like:
 
 ```bash
-EXPO_PUBLIC_API_URL=http:192.168.1.80:3000/api/v1
+EXPO_PUBLIC_API_URL=http://192.168.1.80:3000/api/v1
 ```
 
 ### 2. Start the development server
