@@ -7,6 +7,7 @@ export const GENRE_LIST = [
   'Horror',
   'Mystery',
   'Non-Fiction',
+  'Romance',
   'Sci-Fi',
 ];
 
@@ -19,6 +20,7 @@ export type Genre =
   | 'Horror'
   | 'Mystery'
   | 'Non-Fiction'
+  | 'Romance'
   | 'Sci-Fi';
 
 export type GenreIcon =
@@ -29,10 +31,11 @@ export type GenreIcon =
   | 'time'
   | 'skull'
   | 'search'
-  | 'rocket';
+  | 'rocket'
+  | 'heart';
 
 export const getGenreIcon = (genre: string): GenreIcon => {
-  const iconMap: Record<string, GenreIcon> = {
+  const iconByGenre: Record<string, GenreIcon> = {
     Adventure: 'compass',
     Biography: 'person',
     Fantasy: 'sparkles',
@@ -41,9 +44,11 @@ export const getGenreIcon = (genre: string): GenreIcon => {
     Horror: 'skull',
     Mystery: 'search',
     'Non-Fiction': 'book',
+    Romance: 'heart',
     'Sci-Fi': 'rocket',
   };
-  return iconMap[genre] || 'question-mark';
+
+  return iconByGenre[genre] || 'question-mark';
 };
 
 export interface Book {

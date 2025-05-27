@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Book } from '../types';
+import { Book, GenreIcon, getGenreIcon } from '../types';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -7,30 +7,17 @@ import { RootStackParamList } from '../../../navigation/AppNavigator';
 import styles from '../styles/styles.list';
 import { Ionicons } from '@expo/vector-icons';
 
-type GenreIcon =
-  | 'compass'
-  | 'person'
-  | 'sparkles'
-  | 'book'
-  | 'time'
-  | 'skull'
-  | 'search'
-  | 'book-outline'
-  | 'rocket';
-
-const getGenreIcon = (genre: string): GenreIcon => {
-  const iconMap: Record<string, GenreIcon> = {
-    Adventure: 'compass',
-    Biography: 'person',
-    Fantasy: 'sparkles',
-    Fiction: 'book',
-    Historical: 'time',
-    Horror: 'skull',
-    Mystery: 'search',
-    'Non-Fiction': 'book',
-    'Sci-Fi': 'rocket',
-  };
-  return iconMap[genre] || 'question-mark';
+const iconMap: Record<string, GenreIcon> = {
+  Adventure: 'compass',
+  Biography: 'person',
+  Fantasy: 'sparkles',
+  Fiction: 'book',
+  Historical: 'time',
+  Horror: 'skull',
+  Mystery: 'search',
+  Romance: 'heart',
+  'Non-Fiction': 'book',
+  'Sci-Fi': 'rocket',
 };
 
 const BookListItem = React.memo(({ book }: { book: Book }) => {
