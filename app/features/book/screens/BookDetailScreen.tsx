@@ -1,12 +1,11 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useBooks } from '../hooks/useBooks';
-import { useEffect } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useBooks } from '../hooks';
 import styles from '../styles/styles.detail';
-import BackButtonX from '../../../components/BackButtonX';
+import { BackButtonX } from '../../../components';
 
 const BookDetail = ({ label, value }: { label: string; value: string }) => (
   <View style={styles.detailRow}>

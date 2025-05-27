@@ -7,19 +7,16 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import { NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
-import { RootStackParamList } from '../../../navigation/AppNavigator';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
-import { useBooks } from '../hooks/useBooks';
-import { useEffect } from 'react';
-import { Book, Genre } from '../types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import BackButtonX from '../../../components/BackButtonX';
-import Picker from '../../../components/Picker';
+import { NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../../../navigation/AppNavigator';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useBooks } from '../hooks/useBooks';
+import { Genre } from '../types';
+import { BackButtonX, Picker } from '../../../components';
 
 const GENRE_OPTIONS = [
   'Adventure',

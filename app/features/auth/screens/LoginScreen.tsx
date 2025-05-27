@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import LoginForm from '../components/LoginForm';
 import styles from '../styles';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks';
 
 export default function LoginScreen() {
   const { login, signUp } = useAuth();

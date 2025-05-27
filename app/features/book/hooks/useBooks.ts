@@ -1,9 +1,9 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useAuth } from '../../auth/hooks/useAuth';
-import * as service from '../service';
-import { AddBookData, Book, Genre, PaginatedBooksResponse } from '../types';
 import { useState } from 'react';
-import { useDebounceSearch } from '../../../hooks/useDebounceSearch';
+import { useAuth } from '../../auth';
+import * as service from '../api';
+import { AddBookData, Book, PaginatedBooksResponse } from '../types';
+import { useDebounceSearch } from '../../../hooks';
 
 export const useBooks = () => {
   const { getToken } = useAuth();

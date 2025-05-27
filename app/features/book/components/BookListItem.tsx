@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import { Book, GenreIcon, getGenreIcon } from '../types';
+import { Book, getGenreIcon } from '../types';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import styles from '../styles/styles.list';
-import { Ionicons } from '@expo/vector-icons';
 
 const BookListItem = React.memo(({ book }: { book: Book }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();

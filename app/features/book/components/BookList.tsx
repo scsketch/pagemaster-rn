@@ -2,7 +2,6 @@ import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react
 import styles from '../styles/styles.list';
 import { Book } from '../types';
 import BookListItem from './BookListItem';
-import { useBooks } from '../hooks';
 import React from 'react';
 
 const BookList = ({

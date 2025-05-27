@@ -1,5 +1,4 @@
 import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { useAuth } from '../hooks/useAuth';
 import { useState } from 'react';
 import styles from '../styles';
 import { NavigationProp, useNavigation, useIsFocused } from '@react-navigation/native';

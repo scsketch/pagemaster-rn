@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 import { LoginCredentials } from '../types';
-import * as service from '../service';
+import * as api from '../api';
 
 interface User {
   id: string;
@@ -47,13 +47,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signUp = async (credentials: LoginCredentials): Promise<void> => {
-    const res = await service.signUp(credentials);
+    const res = await api.signUp(credentials);
     await setToken(res.token);
     setUser(res.user);
   };
 
   const login = async (credentials: LoginCredentials): Promise<void> => {
-    const res = await service.login(credentials);
+    const res = await api.login(credentials);
     await setToken(res.token);
     setUser(res.user);
   };
@@ -64,7 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.log('No token found, ignoring logout');
       return;
     }
-    await service.logout(token);
+    await api.logout(token);
     await clearToken();
     setUser(null);
   };
