@@ -57,13 +57,7 @@ EXPO_PUBLIC_API_URL=http:192.168.1.80:3000/api/v1
 ### 2. Start the development server
 
 ```bash
-npm run ios
-```
-
-OR
-
-```bash
-npm run android
+npm start
 ```
 
 You should see a QR code printed in the terminal.
