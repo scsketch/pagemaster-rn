@@ -52,7 +52,7 @@ export default StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 12,
   },
   secondaryButton: {
     backgroundColor: 'transparent',
@@ -86,5 +86,14 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: -20,
     left: 0,
+  },
+  authErrorText: {
+    color: '#ff3b30',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  errorContainer: {
+    height: 20,
+    justifyContent: 'center',
   },
 });

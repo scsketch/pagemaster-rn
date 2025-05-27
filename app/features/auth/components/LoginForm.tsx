@@ -27,6 +27,7 @@ const LoginForm = ({
   const isFocused = useIsFocused();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const {
     control,
@@ -42,22 +43,24 @@ const LoginForm = ({
 
   const handleLogin = async (data: LoginFormInput) => {
     setIsLoading(true);
+    setErrorMessage('');
     try {
       await login(data);
       navigation.navigate('BookList');
     } catch (error) {
-      Alert.alert('Login Failed', 'Please check your credentials and try again');
+      setErrorMessage('Please check your credentials and try again');
       setIsLoading(false);
     }
   };
 
   const handleSignUp = async (data: LoginFormInput) => {
     setIsLoading(true);
+    setErrorMessage('');
     try {
       await signUp(data);
       navigation.navigate('BookList');
     } catch (error) {
-      Alert.alert('Sign Up Failed', 'Please check your credentials and try again');
+      setErrorMessage('Could not sign up with that email.');
       setIsLoading(false);
     }
   };
@@ -66,6 +69,7 @@ const LoginForm = ({
   React.useEffect(() => {
     if (!isFocused) {
       setIsLoading(false);
+      setErrorMessage('');
     }
   }, [isFocused]);
 
@@ -124,6 +128,9 @@ const LoginForm = ({
             </>
           )}
         />
+      </View>
+      <View style={styles.errorContainer}>
+        {errorMessage ? <Text style={styles.authErrorText}>{errorMessage}</Text> : null}
       </View>
       <TouchableOpacity
         style={[styles.button, (isLoading || !isFocused) && styles.buttonDisabled]}
