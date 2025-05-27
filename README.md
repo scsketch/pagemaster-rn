@@ -62,7 +62,7 @@ npm start
 
 You should see a QR code printed in the terminal.
 
-### 3. Download Expo GO from the app store
+### 3. Download Expo Go from the app store
 
 Expo Go is used for easily running development builds on your device.
 
