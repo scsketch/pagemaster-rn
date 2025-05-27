@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useAuth } from '../../auth';
-import * as service from '../api';
+import * as api from '../api';
 import { AddBookData, Book, PaginatedBooksResponse } from '../types';
 import { useDebounceSearch } from '../../../hooks';
 
@@ -25,7 +25,7 @@ export const useBooks = () => {
     queryFn: async ({ pageParam = 1 }) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      return service.getBooks(token, pageParam as number, debouncedSearch, genreFilter);
+      return api.getBooks(token, pageParam as number, debouncedSearch, genreFilter);
     },
     getNextPageParam: lastPage => {
       if (lastPage.page < lastPage.totalPages) {
@@ -42,7 +42,7 @@ export const useBooks = () => {
     mutationFn: async (bookId: string) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      return service.getBook(token, bookId);
+      return api.getBook(token, bookId);
     },
     onSuccess: book => {
       queryClient.setQueryData(['books', debouncedSearch, genreFilter], (old: any) => {
@@ -127,7 +127,7 @@ export const useBooks = () => {
     mutationFn: async (bookData: AddBookData) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      return service.createBook(token, bookData);
+      return api.createBook(token, bookData);
     },
     onSuccess: newBook => {
       queryClient.setQueryData(['books'], (old: any) => {
@@ -152,7 +152,7 @@ export const useBooks = () => {
     mutationFn: async ({ bookId, bookData }: { bookId: string; bookData: AddBookData }) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      return service.updateBook(token, bookId, bookData);
+      return api.updateBook(token, bookId, bookData);
     },
     onSuccess: updatedBook => {
       queryClient.setQueryData(['books', debouncedSearch], (old: any) => {
