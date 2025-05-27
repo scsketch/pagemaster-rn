@@ -84,3 +84,14 @@ The app will open in Expo Go.
 4. Filter books by category (genre)
 5. Press "Add Book" to add a new book
 6. Press a book in the list to view and edit the book's details
+
+## NOTES
+
+1. Authentication Implementation Notes:
+   - Mobile: JWT tokens are stored in SecureStore (expo-secure-store), which provides encrypted storage
+   - Web: Currently using localStorage for token storage (not recommended for production)
+   - Production Recommendation:
+     - Use HTTP-only cookies for web authentication
+     - Let the browser handle cookie management automatically
+     - Continue using SecureStore for mobile platforms
+   - This approach would provide better security while maintaining a good user experience across platforms
