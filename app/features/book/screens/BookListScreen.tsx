@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
 import { useBooks } from '../hooks';
+import { useBookMutations } from '../hooks/useBookMutations';
 import styles from '../styles/styles.list';
 import { BookList, BookListHeader } from '../components';
 
@@ -23,6 +24,8 @@ export default function BookListScreen() {
     genreFilter,
     setGenreFilter,
   } = useBooks();
+
+  const { addBook, updateBook } = useBookMutations(search, genreFilter);
 
   return (
     <SafeAreaView style={styles.container}>

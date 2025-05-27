@@ -14,7 +14,9 @@ import { z } from 'zod';
 import { NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useBooks } from '../hooks/useBooks';
+import { useBooks } from '../hooks';
+import { useBookMutations } from '../hooks/useBookMutations';
+import { useBookDetail } from '../hooks/useBookDetail';
 import { Genre } from '../types';
 import { BackButtonX, Picker } from '../../../components';
 
@@ -50,8 +52,9 @@ export default function AddBookScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute();
   const { id } = route.params as { id?: string };
-  const { books, fetchBook, addBook, updateBook } = useBooks();
-  const book = id ? books.find(b => b.id === id) : undefined;
+  const { books } = useBooks();
+  const { addBook, updateBook } = useBookMutations('', '');
+  const { book } = useBookDetail(id ?? '');
   const isEditing = !!id;
 
   const {
@@ -69,12 +72,6 @@ export default function AddBookScreen() {
       description: book?.description ?? '',
     },
   });
-
-  useEffect(() => {
-    if (id) {
-      fetchBook(id);
-    }
-  }, [id]);
 
   useEffect(() => {
     if (book) {
@@ -95,7 +92,7 @@ export default function AddBookScreen() {
         author: data.author,
         genre: data.genre as Genre,
         price: parseFloat(data.price),
-        description: data.description,
+        description: data.description || '',
       };
 
       if (isEditing && id) {

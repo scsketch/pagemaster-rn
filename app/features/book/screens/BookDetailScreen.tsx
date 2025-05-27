@@ -2,8 +2,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useEffect } from 'react';
-import { useBooks } from '../hooks';
+import React from 'react';
+import { useBookDetail } from '../hooks/useBookDetail';
 import styles from '../styles/styles.detail';
 import { BackButtonX } from '../../../components';
 
@@ -18,19 +18,25 @@ export default function BookDetailScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute();
   const { id } = route.params as { id: string };
-  const { books, fetchBook } = useBooks();
-  const book = books.find(b => b.id === id);
+  const { book, isLoading, error } = useBookDetail(id);
 
-  useEffect(() => {
-    fetchBook(id);
-  }, []);
-
-  if (!book) {
+  if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>
         <BackButtonX />
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Book not found</Text>
+          <Text style={styles.loadingText}>Loading...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (error || !book) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <BackButtonX />
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{error || 'Book not found'}</Text>
         </View>
       </SafeAreaView>
     );

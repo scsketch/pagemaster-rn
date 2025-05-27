@@ -82,4 +82,9 @@ export default StyleSheet.create({
     marginTop: 8,
     lineHeight: 24,
   },
+  loadingText: {
+    color: '#666',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });

@@ -66,6 +66,7 @@ export async function updateBook(
     Authorization: `Bearer ${token}`,
   };
 
+  console.log('updateBook: ', bookData);
   const res: AxiosResponse<Book> = await api.put(`/books/${id}`, bookData, config);
   return res.data;
 }
