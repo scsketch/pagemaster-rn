@@ -61,7 +61,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = async (): Promise<void> => {
     const token = await getToken();
     if (!token) {
-      console.log('No token found, ignoring logout');
       return;
     }
     await api.logout(token);
