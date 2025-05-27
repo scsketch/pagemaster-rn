@@ -39,17 +39,17 @@ export const useBooks = () => {
   const books = booksData?.pages.flatMap(page => page.data) ?? [];
 
   const { mutateAsync: fetchBook } = useMutation({
-    mutationFn: async (bookId: string) => {
+    mutationFn: async (id: string) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      return api.getBook(token, bookId);
+      return api.getBook(token, id);
     },
     onSuccess: book => {
       queryClient.setQueryData(['books', debouncedSearch, genreFilter], (old: any) => {
         if (!old) return { pages: [{ data: [book] }] };
 
         const pageIndex = old.pages.findIndex((page: any) =>
-          page.data.some((b: Book) => b.bookId === book.bookId)
+          page.data.some((b: Book) => b.id === book.id)
         );
 
         if (pageIndex === -1) {
@@ -73,7 +73,7 @@ export const useBooks = () => {
             if (index === pageIndex) {
               return {
                 ...page,
-                data: page.data.map((b: Book) => (b.bookId === book.bookId ? book : b)),
+                data: page.data.map((b: Book) => (b.id === book.id ? book : b)),
               };
             }
             return page;
@@ -86,7 +86,7 @@ export const useBooks = () => {
           if (!old) return { pages: [{ data: [book] }] };
 
           const pageIndex = old.pages.findIndex((page: any) =>
-            page.data.some((b: Book) => b.bookId === book.bookId)
+            page.data.some((b: Book) => b.id === book.id)
           );
 
           if (pageIndex === -1) {
@@ -110,7 +110,7 @@ export const useBooks = () => {
               if (index === pageIndex) {
                 return {
                   ...page,
-                  data: page.data.map((b: Book) => (b.bookId === book.bookId ? book : b)),
+                  data: page.data.map((b: Book) => (b.id === book.id ? book : b)),
                 };
               }
               return page;
@@ -119,7 +119,7 @@ export const useBooks = () => {
         });
       }
 
-      queryClient.setQueryData(['book', book.bookId], book);
+      queryClient.setQueryData(['book', book.id], book);
     },
   });
 
@@ -149,10 +149,10 @@ export const useBooks = () => {
   });
 
   const { mutateAsync: updateBook } = useMutation({
-    mutationFn: async ({ bookId, bookData }: { bookId: string; bookData: AddBookData }) => {
+    mutationFn: async ({ id, bookData }: { id: string; bookData: AddBookData }) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
-      return api.updateBook(token, bookId, bookData);
+      return api.updateBook(token, id, bookData);
     },
     onSuccess: updatedBook => {
       queryClient.setQueryData(['books', debouncedSearch], (old: any) => {
@@ -162,7 +162,7 @@ export const useBooks = () => {
           ...old,
           pages: old.pages.map((page: any) => ({
             ...page,
-            data: page.data.map((b: Book) => (b.bookId === updatedBook.bookId ? updatedBook : b)),
+            data: page.data.map((b: Book) => (b.id === updatedBook.id ? updatedBook : b)),
           })),
         };
       });
@@ -175,13 +175,13 @@ export const useBooks = () => {
             ...old,
             pages: old.pages.map((page: any) => ({
               ...page,
-              data: page.data.map((b: Book) => (b.bookId === updatedBook.bookId ? updatedBook : b)),
+              data: page.data.map((b: Book) => (b.id === updatedBook.id ? updatedBook : b)),
             })),
           };
         });
       }
 
-      queryClient.setQueryData(['book', updatedBook.bookId], updatedBook);
+      queryClient.setQueryData(['book', updatedBook.id], updatedBook);
     },
   });
 

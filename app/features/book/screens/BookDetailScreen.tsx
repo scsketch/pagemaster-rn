@@ -17,12 +17,12 @@ const BookDetail = ({ label, value }: { label: string; value: string }) => (
 export default function BookDetailScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute();
-  const { bookId } = route.params as { bookId: string };
+  const { id } = route.params as { id: string };
   const { books, fetchBook } = useBooks();
-  const book = books.find(b => b.bookId === bookId);
+  const book = books.find(b => b.id === id);
 
   useEffect(() => {
-    fetchBook(bookId);
+    fetchBook(id);
   }, []);
 
   if (!book) {
@@ -42,7 +42,7 @@ export default function BookDetailScreen() {
         <BackButtonX />
         <TouchableOpacity
           style={styles.editButton}
-          onPress={() => navigation.navigate('AddBook', { bookId })}
+          onPress={() => navigation.navigate('AddBook', { id })}
         >
           <Text style={styles.editButtonText}>Edit</Text>
         </TouchableOpacity>

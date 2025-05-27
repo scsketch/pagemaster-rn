@@ -11,8 +11,8 @@ export type RootStackParamList = {
   Login: undefined;
   SignUp: undefined;
   BookList: undefined;
-  BookDetail: { bookId: string };
-  AddBook: { bookId?: string };
+  BookDetail: { id: string };
+  AddBook: { id?: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

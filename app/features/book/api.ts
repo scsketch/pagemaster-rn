@@ -33,14 +33,14 @@ export async function getBooks(
   return res.data;
 }
 
-export async function getBook(token: string | null, bookId: string): Promise<Book> {
+export async function getBook(token: string | null, id: string): Promise<Book> {
   const config: any = {};
 
   config.headers = {
     Authorization: `Bearer ${token}`,
   };
 
-  const res: AxiosResponse<Book> = await api.get(`/books/${bookId}`, config);
+  const res: AxiosResponse<Book> = await api.get(`/books/${id}`, config);
   return res.data;
 }
 
@@ -57,7 +57,7 @@ export async function createBook(token: string | null, bookData: AddBookData): P
 
 export async function updateBook(
   token: string | null,
-  bookId: string,
+  id: string,
   bookData: AddBookData
 ): Promise<Book> {
   const config: any = {};
@@ -66,6 +66,6 @@ export async function updateBook(
     Authorization: `Bearer ${token}`,
   };
 
-  const res: AxiosResponse<Book> = await api.patch(`/books/${bookId}`, bookData, config);
+  const res: AxiosResponse<Book> = await api.put(`/books/${id}`, bookData, config);
   return res.data;
 }

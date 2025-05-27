@@ -15,7 +15,7 @@ const BookListItem = React.memo(({ book }: { book: Book }) => {
   return (
     <TouchableOpacity
       style={styles.bookItem}
-      onPress={() => navigation.navigate('BookDetail', { bookId: book.bookId })}
+      onPress={() => navigation.navigate('BookDetail', { id: book.id })}
     >
       <View style={styles.bookInfo}>
         <Text style={styles.bookTitle}>{book.title}</Text>

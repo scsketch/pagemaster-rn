@@ -49,10 +49,10 @@ type BookFormInput = z.infer<typeof bookSchema>;
 export default function AddBookScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute();
-  const { bookId } = route.params as { bookId?: string };
+  const { id } = route.params as { id?: string };
   const { books, fetchBook, addBook, updateBook } = useBooks();
-  const book = bookId ? books.find(b => b.bookId === bookId) : undefined;
-  const isEditing = !!bookId;
+  const book = id ? books.find(b => b.id === id) : undefined;
+  const isEditing = !!id;
 
   const {
     control,
@@ -71,10 +71,10 @@ export default function AddBookScreen() {
   });
 
   useEffect(() => {
-    if (bookId) {
-      fetchBook(bookId);
+    if (id) {
+      fetchBook(id);
     }
-  }, [bookId]);
+  }, [id]);
 
   useEffect(() => {
     if (book) {
@@ -98,9 +98,9 @@ export default function AddBookScreen() {
         description: data.description,
       };
 
-      if (isEditing && bookId) {
+      if (isEditing && id) {
         await updateBook({
-          bookId,
+          id,
           bookData,
         });
       } else {

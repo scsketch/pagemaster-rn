@@ -34,7 +34,7 @@ const BookList = ({
     <FlatList
       data={books}
       renderItem={renderBookItem}
-      keyExtractor={item => item.bookId}
+      keyExtractor={item => item.id}
       contentContainerStyle={styles.listContainer}
       onEndReached={() => {
         if (!isLoading && !isRefreshing && hasMore) {

@@ -52,7 +52,7 @@ export const getGenreIcon = (genre: string): GenreIcon => {
 };
 
 export interface Book {
-  bookId: string;
+  id: string;
   title: string;
   author: string;
   genre: Genre;
@@ -80,7 +80,7 @@ export interface AddBookData {
   author: string;
   genre: Genre;
   price: number;
-  description?: string;
+  description: string;
 }
 
 export interface UpdateBookData extends AddBookData {
