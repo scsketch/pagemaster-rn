@@ -7,19 +7,6 @@ import { RootStackParamList } from '../../../navigation/AppNavigator';
 import styles from '../styles/styles.list';
 import { Ionicons } from '@expo/vector-icons';
 
-const iconMap: Record<string, GenreIcon> = {
-  Adventure: 'compass',
-  Biography: 'person',
-  Fantasy: 'sparkles',
-  Fiction: 'book',
-  Historical: 'time',
-  Horror: 'skull',
-  Mystery: 'search',
-  Romance: 'heart',
-  'Non-Fiction': 'book',
-  'Sci-Fi': 'rocket',
-};
-
 const BookListItem = React.memo(({ book }: { book: Book }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
