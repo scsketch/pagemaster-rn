@@ -1,0 +1,84 @@
+# Pagemaster React-Native Client
+
+React-Native mobile client for connecting to Pagemaster bookstore backend. Allows managing and viewing of books.
+
+## Tools and Technology
+
+- **Framework:** React-Native w/ Expo
+- **Language:** TypeScript
+- **API State Management:** Tanstack Query
+- **Navigation:** React-Navigation
+- **Validation:** zod
+
+## Prerequisites
+
+- Node.js
+- npm
+- Expo Go (Optional - see below)
+
+## Installation
+
+Follow these steps to get the application running:
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Copy .env.example
+
+```bash
+cp .env.example .env
+```
+
+## Run on the web
+
+```bash
+npm run web
+```
+
+You can then press `w` in the terminal, or open your browser at `http://localhost:8081/`
+
+## Run on your mobile device
+
+_IMPORTANT:_ Make sure your mobile device is on the same WiFi network as your computer running the Pagemaster backend. Otherwise the React-Native client running on your phone won't be able to connect to the backend running on your machine.
+
+### 1. Modify .env file
+
+Replace `EXPO_PUBLIC_API_URL` in the `.env` file with your local IP, so it looks like:
+
+```bash
+EXPO_PUBLIC_API_URL=http:192.168.1.80:3000/api/v1
+```
+
+### 2. Start the development server
+
+```bash
+npm run ios
+```
+
+OR
+
+```bash
+npm run android
+```
+
+You should see a QR code printed in the terminal.
+
+### 3. Download Expo GO from the app store
+
+Expo Go is used for easily running development builds on your device.
+
+### 4. Scan the QR code with your device's camera
+
+The app will open in Expo Go.
+
+## How to use the client
+
+1. Sign up with a user name and password
+2. Browse books.
+3. Search books by author and title.
+4. Filter books by category (genre).
+5. Press "Add Book" to add a new book.
+6. Press a book in the list to view and edit the book's details.

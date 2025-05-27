@@ -30,7 +30,7 @@ export type GenreIcon =
   | 'book'
   | 'time'
   | 'skull'
-  | 'search'
+  | 'search-circle'
   | 'rocket'
   | 'heart';
 
@@ -42,7 +42,7 @@ export const getGenreIcon = (genre: string): GenreIcon => {
     Fiction: 'book',
     Historical: 'time',
     Horror: 'skull',
-    Mystery: 'search',
+    Mystery: 'search-circle',
     'Non-Fiction': 'book',
     Romance: 'heart',
     'Sci-Fi': 'rocket',
