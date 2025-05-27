@@ -34,6 +34,8 @@ cp .env.example .env
 
 ## Run on the web
 
+This was made as mobile first but you can test it in a browser.
+
 ```bash
 npm run web
 ```
