@@ -93,3 +93,11 @@ The app will open in Expo Go.
      - Continue using SecureStore for mobile platforms
 
 2. Tests are minimal for demonstration purposes (run `npm test`)
+
+3. The app has an ErrorBoundary that will catch uncaught errors and display a user friendly error page.
+
+## Future Work
+
+1. Offline support to add/edit books and sync when back online.
+2. Additional unit tests, E2E tests using Detox.
+3. More specific accessibility features.
