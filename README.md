@@ -2,7 +2,9 @@
 
 React-Native mobile client for connecting to Pagemaster bookstore backend. Allows managing and viewing of books.
 
-![image](https://github.com/user-attachments/assets/fb7bb637-951b-4b69-bb8e-ca4e2f6632e9)
+<img width="1287" alt="image" src="https://github.com/user-attachments/assets/6ad08294-71b0-4d49-b0ec-ba840338fa58" />
+
+<img width="340" alt="image" src="https://github.com/user-attachments/assets/5cf2fb0f-c80d-4c70-b0fe-088bbee877fe" />
 
 ## Tools and Technology
 
@@ -11,6 +13,7 @@ React-Native mobile client for connecting to Pagemaster bookstore backend. Allow
 - **API State Management:** Tanstack Query
 - **Navigation:** React-Navigation
 - **Validation:** zod
+- **AI Tooling** Cursor
 
 ## Prerequisites
 
@@ -92,14 +95,19 @@ The app will open in Expo Go.
      - Let the browser handle cookie management automatically
      - Continue using SecureStore for mobile platforms
 
-2. Tests are minimal for demonstration purposes (run `npm test`)
+2. Accessibility
 
-3. ErrorBoundary will catch uncaught errors and display a user friendly error page.
+   - All text colors meet WCAG AA (4.5:1) or AAA (7:1) contrast ratios
+   - Status colors are distinguishable for color-blind users
+   - Screen reader support including properlabels, hints, and roles for interactive elements. To test press CTRL+F5 in Chrome, or turn on your screen reader on your mobile device (ie: VoiceOver for iOS).
+   - Keyboard navigable
 
-4. Search is debounced to prevent excessive API calls.
+3. Tests are minimal for demonstration purposes (run `npm test`)
+
+4. The app has an ErrorBoundary that will catch uncaught errors and display a user friendly error page.
 
 ## Future Work
 
 1. Offline support to add/edit books and sync when back online.
 2. Additional unit tests, E2E tests using Detox.
-3. More specific accessibility support.
+3. Additional attention to accessibility
