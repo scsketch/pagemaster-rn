@@ -98,8 +98,7 @@ The app will open in Expo Go.
 2. Accessibility:
 
    - All text colors meet WCAG AA (4.5:1) or AAA (7:1) contrast ratios
-   - Status colors are distinguishable for color-blind users
-   - Screen reader support including properlabels, hints, and roles for interactive elements. To test press CTRL+F5 in Chrome, or turn on your screen reader on your mobile device (ie: VoiceOver for iOS).
+   - Screen reader support including proper labels, hints, and roles for interactive elements. To test press CTRL+F5 in Chrome, or use your screen reader on your mobile device (ie: VoiceOver for iOS).
    - Keyboard navigable
 
 3. Tests are minimal for demonstration purposes (run `npm test`)
@@ -108,12 +107,14 @@ The app will open in Expo Go.
 
 5. Mobile Device Support:
 
-   - I primarily testing this on the iOS simulator, Chrome browser, and my personal iOS device. It seems to work on the Android simulator as well, but I have not tested it on an Android device.
+   - I primarily testing this on the iOS simulator, Chrome browser, and a physical iPhone. It seems to work on the Android simulator as well, but I have not tested it on an Android device.
 
 6. Development Mode Considerations:
    - If you inspect the Chrome console to check the network and notice requests are firing twice, it's because of how React runs in development Strict mode. It's a feature used to help debug in development, and is disabled in production builds.
   
    - Performance is slower than it would be in a production app because we are running in development mode with the development server.
+
+## Future Work
 
 1. Offline support to add/edit books and sync when back online.
 2. Additional unit tests, E2E tests using Detox.
