@@ -6,6 +6,7 @@ import React from 'react';
 import { useBookDetail } from '../hooks/useBookDetail';
 import styles from '../styles/styles.detail';
 import { BackButtonX } from '../../../components';
+import ErrorBoundary from '../../../components/errorBoundary';
 
 const BookDetail = ({ label, value }: { label: string; value: string }) => (
   <View style={styles.detailRow}>
@@ -14,7 +15,7 @@ const BookDetail = ({ label, value }: { label: string; value: string }) => (
   </View>
 );
 
-export default function BookDetailScreen() {
+const BookDetailScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute();
   const { id } = route.params as { id: string };
@@ -69,4 +70,14 @@ export default function BookDetailScreen() {
       </View>
     </SafeAreaView>
   );
-}
+};
+
+const BookDetailScreenWithErrorBoundary = () => {
+  return (
+    <ErrorBoundary>
+      <BookDetailScreen />
+    </ErrorBoundary>
+  );
+};
+
+export default BookDetailScreenWithErrorBoundary;

@@ -7,6 +7,7 @@ import React from 'react';
 import { useBooks } from '../hooks';
 import styles from '../styles/styles.list';
 import { BookList, BookListHeader, GenreFilters } from '../components';
+import ErrorBoundary from '../../../components/errorBoundary';
 
 export default function BookListScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -29,32 +30,34 @@ export default function BookListScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <BookListHeader
-          search={search}
-          setSearch={setSearch}
-          genreFilter={genreFilter}
-          setGenreFilter={setGenreFilter}
-        />
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <GenreFilters selectedGenre={genreFilter || null} onSelectGenre={handleGenreSelect} />
-          <BookList
-            books={books}
-            isLoading={isLoading}
-            isRefreshing={isRefreshing}
-            hasMore={hasMore}
-            fetchNextPage={fetchNextPage}
-            refresh={refresh}
+    <ErrorBoundary>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.innerContainer}>
+          <BookListHeader
+            search={search}
+            setSearch={setSearch}
+            genreFilter={genreFilter}
+            setGenreFilter={setGenreFilter}
           />
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <GenreFilters selectedGenre={genreFilter || null} onSelectGenre={handleGenreSelect} />
+            <BookList
+              books={books}
+              isLoading={isLoading}
+              isRefreshing={isRefreshing}
+              hasMore={hasMore}
+              fetchNextPage={fetchNextPage}
+              refresh={refresh}
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => navigation.navigate('AddBook', {})}
+          >
+            <Text style={styles.addButtonText}>Add Book</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => navigation.navigate('AddBook', {})}
-        >
-          <Text style={styles.addButtonText}>Add Book</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ErrorBoundary>
   );
 }

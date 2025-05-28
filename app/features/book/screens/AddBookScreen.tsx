@@ -20,6 +20,7 @@ import { useBookDetail } from '../hooks/useBookDetail';
 import { Genre } from '../types';
 import { BackButtonX, Picker } from '../../../components';
 import styles from '../styles/styles.add';
+import ErrorBoundary from '../../../components/errorBoundary';
 
 const GENRE_OPTIONS = [
   'Adventure',
@@ -116,98 +117,100 @@ export default function AddBookScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.header}>
-          <BackButtonX />
-          <Text style={styles.headerTitle}>{isEditing ? 'Edit Book' : 'Add Book'}</Text>
-          {Platform.OS !== 'web' && renderSaveButton()}
+    <ErrorBoundary>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.innerContainer}>
+          <View style={styles.header}>
+            <BackButtonX />
+            <Text style={styles.headerTitle}>{isEditing ? 'Edit Book' : 'Add Book'}</Text>
+            {Platform.OS !== 'web' && renderSaveButton()}
+          </View>
+          <ScrollView style={styles.content}>
+            <Controller
+              control={control}
+              name='title'
+              render={({ field: { onChange, value } }) => (
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder='Title'
+                    autoCorrect={false}
+                  />
+                  {errors.title && <Text style={styles.errorText}>{errors.title.message}</Text>}
+                </View>
+              )}
+            />
+            <Controller
+              control={control}
+              name='author'
+              render={({ field: { onChange, value } }) => (
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder='Author'
+                    autoCorrect={false}
+                  />
+                  {errors.author && <Text style={styles.errorText}>{errors.author.message}</Text>}
+                </View>
+              )}
+            />
+            <Controller
+              control={control}
+              name='genre'
+              render={({ field: { onChange, value } }) => (
+                <View style={styles.inputContainer}>
+                  <Picker
+                    value={value}
+                    onValueChange={onChange}
+                    items={GENRE_OPTIONS}
+                    placeholder='Select a genre'
+                  />
+                  {errors.genre && <Text style={styles.errorText}>{errors.genre.message}</Text>}
+                </View>
+              )}
+            />
+            <Controller
+              control={control}
+              name='price'
+              render={({ field: { onChange, value } }) => (
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.input}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder='Price'
+                    keyboardType='decimal-pad'
+                    autoCorrect={false}
+                  />
+                  {errors.price && <Text style={styles.errorText}>{errors.price.message}</Text>}
+                </View>
+              )}
+            />
+            <Controller
+              control={control}
+              name='description'
+              render={({ field: { onChange, value } }) => (
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={[styles.input, styles.descriptionInput]}
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder='Description'
+                    multiline
+                    numberOfLines={4}
+                    autoCorrect={false}
+                  />
+                </View>
+              )}
+            />
+            {Platform.OS === 'web' && renderSaveButton()}
+          </ScrollView>
         </View>
-        <ScrollView style={styles.content}>
-          <Controller
-            control={control}
-            name='title'
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.input}
-                  value={value}
-                  onChangeText={onChange}
-                  placeholder='Title'
-                  autoCorrect={false}
-                />
-                {errors.title && <Text style={styles.errorText}>{errors.title.message}</Text>}
-              </View>
-            )}
-          />
-          <Controller
-            control={control}
-            name='author'
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.input}
-                  value={value}
-                  onChangeText={onChange}
-                  placeholder='Author'
-                  autoCorrect={false}
-                />
-                {errors.author && <Text style={styles.errorText}>{errors.author.message}</Text>}
-              </View>
-            )}
-          />
-          <Controller
-            control={control}
-            name='genre'
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.inputContainer}>
-                <Picker
-                  value={value}
-                  onValueChange={onChange}
-                  items={GENRE_OPTIONS}
-                  placeholder='Select a genre'
-                />
-                {errors.genre && <Text style={styles.errorText}>{errors.genre.message}</Text>}
-              </View>
-            )}
-          />
-          <Controller
-            control={control}
-            name='price'
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.input}
-                  value={value}
-                  onChangeText={onChange}
-                  placeholder='Price'
-                  keyboardType='decimal-pad'
-                  autoCorrect={false}
-                />
-                {errors.price && <Text style={styles.errorText}>{errors.price.message}</Text>}
-              </View>
-            )}
-          />
-          <Controller
-            control={control}
-            name='description'
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={[styles.input, styles.descriptionInput]}
-                  value={value}
-                  onChangeText={onChange}
-                  placeholder='Description'
-                  multiline
-                  numberOfLines={4}
-                  autoCorrect={false}
-                />
-              </View>
-            )}
-          />
-          {Platform.OS === 'web' && renderSaveButton()}
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ErrorBoundary>
   );
 }
