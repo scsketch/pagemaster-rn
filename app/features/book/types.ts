@@ -32,7 +32,8 @@ export type GenreIcon =
   | 'skull'
   | 'search-circle'
   | 'rocket'
-  | 'heart';
+  | 'heart'
+  | 'help-circle';
 
 export const getGenreIcon = (genre: string): GenreIcon => {
   const iconByGenre: Record<string, GenreIcon> = {
@@ -48,7 +49,7 @@ export const getGenreIcon = (genre: string): GenreIcon => {
     'Sci-Fi': 'rocket',
   };
 
-  return iconByGenre[genre] || 'question-mark';
+  return iconByGenre[genre] || 'help-circle';
 };
 
 export interface Book {
