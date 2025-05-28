@@ -95,7 +95,7 @@ The app will open in Expo Go.
      - Let the browser handle cookie management automatically
      - Continue using SecureStore for mobile platforms
 
-2. Accessibility
+2. Accessibility:
 
    - All text colors meet WCAG AA (4.5:1) or AAA (7:1) contrast ratios
    - Status colors are distinguishable for color-blind users
