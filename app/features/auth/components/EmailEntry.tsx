@@ -14,6 +14,7 @@ const EmailEntry = ({ value, onChange, errors, editable }: EmailEntryProps) => (
   <TextInput
     style={[styles.input, errors.email && styles.inputError]}
     placeholder='Enter your email'
+    placeholderTextColor={styles.placeholderText.color}
     value={value}
     onChangeText={onChange}
     keyboardType='email-address'

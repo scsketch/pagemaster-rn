@@ -42,6 +42,10 @@ export default StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     backgroundColor: colors.input.background,
+    color: colors.text.primary,
+  },
+  placeholderText: {
+    color: '#999999',
   },
   passwordContainer: {
     position: 'relative',

@@ -1,7 +1,6 @@
 import { FieldErrors } from 'react-hook-form';
 import { LoginFormInput } from './LoginForm';
 import { TextInput } from 'react-native';
-
 import styles from '../styles';
 
 interface PasswordInputProps {
@@ -16,6 +15,7 @@ const PasswordInput = ({ value, onChange, errors, showPassword, editable }: Pass
   <TextInput
     style={[styles.input, styles.passwordInput, errors.password && styles.inputError]}
     placeholder='Enter your password'
+    placeholderTextColor={styles.placeholderText.color}
     value={value}
     onChangeText={onChange}
     secureTextEntry={!showPassword}
