@@ -9,8 +9,21 @@ interface EyeButtonProps {
 }
 
 const EyeButton = ({ show, setShow, disabled }: EyeButtonProps) => (
-  <TouchableOpacity style={styles.eyeButton} onPress={() => setShow(!show)} disabled={disabled}>
-    <Ionicons name={show ? 'eye' : 'eye-off'} size={24} color='#666' />
+  <TouchableOpacity
+    style={styles.eyeButton}
+    onPress={() => setShow(!show)}
+    disabled={disabled}
+    accessibilityLabel='Toggle password visibility'
+    accessibilityHint='Press to toggle password visibility'
+    accessibilityRole='button'
+  >
+    <Ionicons
+      name={show ? 'eye' : 'eye-off'}
+      size={24}
+      color='#666'
+      pointerEvents='none'
+      importantForAccessibility='no'
+    />
   </TouchableOpacity>
 );
 

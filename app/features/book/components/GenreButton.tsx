@@ -14,16 +14,21 @@ interface GenreButtonProps {
 }
 
 const GenreButton = ({ genre, selectedGenre, onSelectGenre, icon }: GenreButtonProps) => (
-  <TouchableOpacity key={genre} style={[styles.genreButton]} onPress={() => onSelectGenre(genre)}>
+  <TouchableOpacity
+    key={genre}
+    style={[styles.genreButton]}
+    onPress={() => onSelectGenre(genre)}
+    accessibilityLabel={genre ? `Filter genre ${genre}` : 'Show all genres'}
+    accessibilityHint={'Press to filter books by genre. Press again to remove filter'}
+    accessibilityRole='button'
+  >
     <Ionicons
       name={icon as GenreIcon}
       size={24}
       color={selectedGenre === genre ? selectedColor : unselectedColor}
-      accessibilityLabel={`Filter genre ${genre}`}
-      accessibilityHint={'Press to filter books by genre. Press again to remove filter'}
-      accessibilityRole='button'
       focusable={false}
       pointerEvents='none'
+      importantForAccessibility='no'
     />
   </TouchableOpacity>
 );

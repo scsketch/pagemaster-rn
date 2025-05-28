@@ -47,7 +47,7 @@ const BookListHeader = ({
             placeholderTextColor='#666'
             autoCapitalize='none'
             autoCorrect={false}
-            accessibilityLabel='Search books'
+            accessibilityLabel='Search books by title or author'
             accessibilityHint='Enter text to search for books by title or author'
             accessibilityRole='search'
           />

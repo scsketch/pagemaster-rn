@@ -113,7 +113,15 @@ const LoginForm = ({ login, signUp }: LoginFormProps) => {
         />
       </View>
       <View style={styles.errorContainer}>
-        {errorMessage ? <Text style={styles.authErrorText}>{errorMessage}</Text> : null}
+        {errorMessage ? (
+          <Text
+            style={styles.authErrorText}
+            accessibilityRole='alert'
+            accessibilityLiveRegion='assertive'
+          >
+            {errorMessage}
+          </Text>
+        ) : null}
       </View>
       <AuthButton
         onPress={handleSubmit(handleLogin)}

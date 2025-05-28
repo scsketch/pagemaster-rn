@@ -24,8 +24,13 @@ interface GenreFiltersProps {
 
 export default function GenreFilters({ selectedGenre, onSelectGenre }: GenreFiltersProps) {
   return (
-    <View style={styles.wrapper}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <View style={styles.wrapper} accessibilityRole='none' importantForAccessibility='no'>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+        accessibilityRole='none'
+        importantForAccessibility='no'
+      >
         <GenreButton
           genre={null}
           selectedGenre={selectedGenre}
