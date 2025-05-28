@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { typography, colors } from '../../../theme';
 
 export default StyleSheet.create({
@@ -21,6 +21,7 @@ export default StyleSheet.create({
     backgroundColor: colors.input.background,
     borderRadius: 8,
     paddingHorizontal: 12,
+    minHeight: 48,
   },
   searchIcon: {
     marginRight: 8,
@@ -28,10 +29,30 @@ export default StyleSheet.create({
   searchInput: {
     ...typography.input,
     flex: 1,
-    height: 40,
+    height: 48,
     color: colors.text.primary,
+    paddingVertical: 12,
   },
   logoutButton: {
-    padding: 4,
+    padding: 12,
+    minWidth: 48,
+    minHeight: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    backgroundColor: colors.input.background,
+    borderWidth: 1,
+    borderColor: colors.border.light,
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.text.primary,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
   },
 });

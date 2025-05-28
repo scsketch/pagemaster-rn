@@ -19,6 +19,11 @@ const GenreButton = ({ genre, selectedGenre, onSelectGenre, icon }: GenreButtonP
       name={icon as GenreIcon}
       size={24}
       color={selectedGenre === genre ? selectedColor : unselectedColor}
+      accessibilityLabel={`Filter genre ${genre}`}
+      accessibilityHint={'Press to filter books by genre. Press again to remove filter'}
+      accessibilityRole='button'
+      focusable={false}
+      pointerEvents='none'
     />
   </TouchableOpacity>
 );

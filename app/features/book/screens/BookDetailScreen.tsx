@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import { NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -43,6 +43,15 @@ const BookDetailScreen = () => {
     );
   }
 
+  const renderSaveButton = () => (
+    <TouchableOpacity
+      style={styles.saveButton}
+      onPress={() => navigation.navigate('AddBook', { id })}
+    >
+      <Text style={styles.saveButtonText}>Edit</Text>
+    </TouchableOpacity>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
@@ -52,7 +61,7 @@ const BookDetailScreen = () => {
             style={styles.editButton}
             onPress={() => navigation.navigate('AddBook', { id })}
           >
-            <Text style={styles.editButtonText}>Edit</Text>
+            {Platform.OS !== 'web' && renderSaveButton()}
           </TouchableOpacity>
         </View>
         <View style={styles.content}>
@@ -67,6 +76,8 @@ const BookDetailScreen = () => {
             </View>
           </View>
         </View>
+
+        {Platform.OS === 'web' && renderSaveButton()}
       </View>
     </SafeAreaView>
   );

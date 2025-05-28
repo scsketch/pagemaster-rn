@@ -94,10 +94,12 @@ The app will open in Expo Go.
 
 2. Tests are minimal for demonstration purposes (run `npm test`)
 
-3. The app has an ErrorBoundary that will catch uncaught errors and display a user friendly error page.
+3. ErrorBoundary will catch uncaught errors and display a user friendly error page.
+
+4. Search is debounced to prevent excessive API calls.
 
 ## Future Work
 
 1. Offline support to add/edit books and sync when back online.
 2. Additional unit tests, E2E tests using Detox.
-3. More specific accessibility features.
+3. More specific accessibility support.

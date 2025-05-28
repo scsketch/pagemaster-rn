@@ -119,11 +119,17 @@ const LoginForm = ({ login, signUp }: LoginFormProps) => {
         onPress={handleSubmit(handleLogin)}
         disabled={isLoading || !isFocused}
         text='Login'
+        accessibilityLabel='Log in'
+        accessibilityHint='Press to log in to an existing account'
+        accessibilityRole='button'
       />
       <AuthButton
         onPress={handleSubmit(handleSignUp)}
         disabled={isLoading || !isFocused}
         text='Sign Up'
+        accessibilityLabel='Sign up'
+        accessibilityHint='Press to sign up for a new account'
+        accessibilityRole='button'
         secondary
       />
     </View>

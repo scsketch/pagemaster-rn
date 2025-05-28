@@ -21,6 +21,9 @@ const EmailEntry = ({ value, onChange, errors, editable }: EmailEntryProps) => (
     autoCorrect={false}
     autoComplete='email'
     editable={editable}
+    accessibilityLabel='Email address'
+    accessibilityHint='Enter your email address'
+    accessibilityRole='text'
   />
 );
 

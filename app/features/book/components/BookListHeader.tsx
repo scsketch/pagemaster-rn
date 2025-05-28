@@ -47,9 +47,18 @@ const BookListHeader = ({
             placeholderTextColor='#666'
             autoCapitalize='none'
             autoCorrect={false}
+            accessibilityLabel='Search books'
+            accessibilityHint='Enter text to search for books by title or author'
+            accessibilityRole='search'
           />
         </View>
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleLogout}
+          accessibilityLabel='Logout button'
+          accessibilityHint='Press to logout and return to the login screen'
+          accessibilityRole='button'
+        >
           <Ionicons name='log-out-outline' size={24} color='#007AFF' />
         </TouchableOpacity>
       </View>

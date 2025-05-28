@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity } from 'react-native';
+import { AccessibilityRole, Text, TouchableOpacity } from 'react-native';
 import styles from '../styles';
 
 interface AuthButtonProps {
@@ -6,9 +6,20 @@ interface AuthButtonProps {
   disabled: boolean;
   text: string;
   secondary?: boolean;
+  accessibilityLabel: string;
+  accessibilityHint: string;
+  accessibilityRole: AccessibilityRole;
 }
 
-const AuthButton = ({ onPress, disabled, text, secondary }: AuthButtonProps) => (
+const AuthButton = ({
+  onPress,
+  disabled,
+  text,
+  secondary,
+  accessibilityLabel,
+  accessibilityHint,
+  accessibilityRole,
+}: AuthButtonProps) => (
   <TouchableOpacity
     style={[
       secondary ? styles.secondaryButton : styles.button,
@@ -16,6 +27,9 @@ const AuthButton = ({ onPress, disabled, text, secondary }: AuthButtonProps) => 
     ]}
     onPress={onPress}
     disabled={disabled}
+    accessibilityLabel={accessibilityLabel}
+    accessibilityHint={accessibilityHint}
+    accessibilityRole={accessibilityRole}
   >
     <Text style={secondary ? styles.secondaryButtonText : styles.buttonText}>{text}</Text>
   </TouchableOpacity>

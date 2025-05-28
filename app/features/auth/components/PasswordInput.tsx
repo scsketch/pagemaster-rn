@@ -22,6 +22,9 @@ const PasswordInput = ({ value, onChange, errors, showPassword, editable }: Pass
     autoCapitalize='none'
     autoComplete='password'
     editable={editable}
+    accessibilityLabel='Password'
+    accessibilityHint='Enter your password'
+    accessibilityRole='text'
   />
 );
 

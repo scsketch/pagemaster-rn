@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { typography, colors } from '../../../theme';
 
 export default StyleSheet.create({
@@ -93,5 +93,16 @@ export default StyleSheet.create({
     ...typography.body,
     color: colors.text.secondary,
     textAlign: 'center',
+  },
+  saveButton: {
+    backgroundColor: Platform.OS === 'web' ? colors.primary : 'transparent',
+    padding: Platform.OS === 'web' ? 16 : 8,
+    borderRadius: Platform.OS === 'web' ? 8 : 0,
+    alignItems: 'center',
+    marginTop: Platform.OS === 'web' ? 8 : 0,
+  },
+  saveButtonText: {
+    ...typography.button,
+    color: Platform.OS === 'web' ? colors.background : colors.primary,
   },
 });

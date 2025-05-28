@@ -10,10 +10,7 @@ export default function LoginScreen() {
   return (
     <ErrorBoundary>
       <SafeAreaView style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps='handled'
-        >
+        <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.innerContainer}>
             <Text style={styles.title}>Pagemaster Books</Text>
             <LoginForm login={login} signUp={signUp} />
