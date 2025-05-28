@@ -83,7 +83,10 @@ const LoginForm = ({ login, signUp }: LoginFormProps) => {
           control={control}
           name='email'
           render={({ field: { onChange, value } }) => (
-            <EmailEntry onChange={onChange} value={value} errors={errors} editable={!isLoading} />
+            <>
+              <EmailEntry onChange={onChange} value={value} errors={errors} editable={!isLoading} />
+              {errors.email && <Text style={styles.errorText}>{errors.email.message}</Text>}
+            </>
           )}
         />
       </View>
