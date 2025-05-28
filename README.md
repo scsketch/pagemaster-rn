@@ -69,7 +69,7 @@ You should see a QR code printed in the terminal.
 
 ### 3. Download Expo Go from the app store
 
-Expo Go is used for easily running development builds on your device.
+Expo Go is used for easily testing React-Native development builds on your device.
 
 ### 4. Scan the QR code with your device's camera
 
