@@ -92,4 +92,4 @@ The app will open in Expo Go.
      - Let the browser handle cookie management automatically
      - Continue using SecureStore for mobile platforms
 
-2. Tests are minimal for demonstration purposes.
+2. Tests are minimal for demonstration purposes (run `npm test`)
