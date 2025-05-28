@@ -54,7 +54,7 @@ export default function AddBookScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute();
   const { id } = route.params as { id?: string };
-  const { addBook, updateBook } = useBookMutations();
+  const { addBook, updateBook, addBookError, updateBookError } = useBookMutations();
   const { book } = useBookDetail(id ?? '');
   const isEditing = !!id;
 
@@ -106,7 +106,7 @@ export default function AddBookScreen() {
       }
       navigation.goBack();
     } catch (error) {
-      Alert.alert('Error', 'Failed to save book. Please try again.');
+      // The error will now be handled by the error state from the mutation
     }
   };
 
@@ -115,6 +115,19 @@ export default function AddBookScreen() {
       <Text style={styles.saveButtonText}>Save</Text>
     </TouchableOpacity>
   );
+
+  const renderError = () => {
+    const error = isEditing ? updateBookError : addBookError;
+    if (!error) return null;
+
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>
+          {error instanceof Error ? error.message : 'Failed to save book. Please try again.'}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <ErrorBoundary>
@@ -126,6 +139,7 @@ export default function AddBookScreen() {
             {Platform.OS !== 'web' && renderSaveButton()}
           </View>
           <ScrollView style={styles.content}>
+            {renderError()}
             <Controller
               control={control}
               name='title'
@@ -153,6 +167,7 @@ export default function AddBookScreen() {
                     value={value}
                     onChangeText={onChange}
                     placeholder='Author'
+                    placeholderTextColor='#999999'
                     autoCorrect={false}
                   />
                   {errors.author && <Text style={styles.errorText}>{errors.author.message}</Text>}

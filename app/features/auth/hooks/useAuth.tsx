@@ -3,6 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 import { LoginCredentials } from '../types';
 import * as api from '../api';
+import { handleApiError } from '../../../api';
 
 interface User {
   id: string;
@@ -47,25 +48,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signUp = async (credentials: LoginCredentials): Promise<void> => {
-    const res = await api.signUp(credentials);
-    await setToken(res.token);
-    setUser(res.user);
+    try {
+      const res = await api.signUp(credentials);
+      await setToken(res.token);
+      setUser(res.user);
+    } catch (error) {
+      return handleApiError(error, 'sign up');
+    }
   };
 
   const login = async (credentials: LoginCredentials): Promise<void> => {
-    const res = await api.login(credentials);
-    await setToken(res.token);
-    setUser(res.user);
+    try {
+      const res = await api.login(credentials);
+      await setToken(res.token);
+      setUser(res.user);
+    } catch (error) {
+      return handleApiError(error, 'log in');
+    }
   };
 
   const logout = async (): Promise<void> => {
-    const token = await getToken();
-    if (!token) {
-      return;
+    try {
+      const token = await getToken();
+      if (!token) {
+        return;
+      }
+      await api.logout(token);
+      await clearToken();
+      setUser(null);
+    } catch (error) {
+      return handleApiError(error, 'log out');
     }
-    await api.logout(token);
-    await clearToken();
-    setUser(null);
   };
 
   return (

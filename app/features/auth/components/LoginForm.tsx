@@ -50,7 +50,11 @@ const LoginForm = ({ login, signUp }: LoginFormProps) => {
       await login(data);
       navigation.navigate('BookList');
     } catch (error) {
-      setErrorMessage('Please check your credentials and try again');
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('An unexpected error occurred. Please try again.');
+      }
       setIsLoading(false);
     }
   };
@@ -62,7 +66,11 @@ const LoginForm = ({ login, signUp }: LoginFormProps) => {
       await signUp(data);
       navigation.navigate('BookList');
     } catch (error) {
-      setErrorMessage('Could not sign up with that email.');
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('An unexpected error occurred. Please try again.');
+      }
       setIsLoading(false);
     }
   };

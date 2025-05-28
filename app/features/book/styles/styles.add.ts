@@ -50,9 +50,15 @@ export default StyleSheet.create({
     textAlignVertical: 'top',
   },
   errorText: {
-    ...typography.error,
     color: colors.text.error,
+    fontSize: 14,
     marginTop: 4,
+  },
+  errorContainer: {
+    backgroundColor: colors.text.error + '10',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
   },
   saveButton: {
     backgroundColor: Platform.OS === 'web' ? colors.primary : 'transparent',
