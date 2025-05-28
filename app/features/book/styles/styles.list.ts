@@ -27,8 +27,6 @@ export default StyleSheet.create({
   },
   listContainer: {
     padding: 16,
-    flexGrow: 1,
-    flex: 1,
   },
   bookItem: {
     backgroundColor: colors.input.background,

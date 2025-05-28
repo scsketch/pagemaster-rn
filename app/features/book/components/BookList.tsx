@@ -33,41 +33,39 @@ const BookList = ({
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <FlatList
-        data={books}
-        renderItem={renderBookItem}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.listContainer}
-        onEndReached={() => {
-          if (!isLoading && !isRefreshing && hasMore) {
-            fetchNextPage();
-          }
-        }}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={renderFooter}
-        refreshing={isRefreshing}
-        onRefresh={refresh}
-        maxToRenderPerBatch={10}
-        windowSize={10}
-        scrollEnabled={true}
-        onScrollBeginDrag={() => {
-          if (Platform.OS === 'web') {
-            document.body.style.cursor = 'grabbing';
-          }
-        }}
-        onScrollEndDrag={() => {
-          if (Platform.OS === 'web') {
-            document.body.style.cursor = 'grab';
-          }
-        }}
-        onTouchStart={() => {
-          if (Platform.OS === 'web') {
-            document.body.style.cursor = 'grab';
-          }
-        }}
-      />
-    </View>
+    <FlatList
+      data={books}
+      renderItem={renderBookItem}
+      keyExtractor={item => item.id}
+      contentContainerStyle={styles.listContainer}
+      onEndReached={() => {
+        if (!isLoading && !isRefreshing && hasMore) {
+          fetchNextPage();
+        }
+      }}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={renderFooter}
+      refreshing={isRefreshing}
+      onRefresh={refresh}
+      maxToRenderPerBatch={10}
+      windowSize={10}
+      scrollEnabled={true}
+      onScrollBeginDrag={() => {
+        if (Platform.OS === 'web') {
+          document.body.style.cursor = 'grabbing';
+        }
+      }}
+      onScrollEndDrag={() => {
+        if (Platform.OS === 'web') {
+          document.body.style.cursor = 'grab';
+        }
+      }}
+      onTouchStart={() => {
+        if (Platform.OS === 'web') {
+          document.body.style.cursor = 'grab';
+        }
+      }}
+    />
   );
 };
 
