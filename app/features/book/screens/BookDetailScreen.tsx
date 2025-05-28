@@ -75,9 +75,9 @@ const BookDetailScreen = () => {
               <Text style={styles.descriptionText}>{book.description ?? 'None'}</Text>
             </View>
           </View>
-        </View>
 
-        {Platform.OS === 'web' && renderSaveButton()}
+          {Platform.OS === 'web' && renderSaveButton()}
+        </View>
       </View>
     </SafeAreaView>
   );

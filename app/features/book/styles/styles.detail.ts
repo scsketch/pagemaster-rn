@@ -99,7 +99,7 @@ export default StyleSheet.create({
     padding: Platform.OS === 'web' ? 16 : 8,
     borderRadius: Platform.OS === 'web' ? 8 : 0,
     alignItems: 'center',
-    marginTop: Platform.OS === 'web' ? 8 : 0,
+    marginTop: Platform.OS === 'web' ? 24 : 0,
   },
   saveButtonText: {
     ...typography.button,
