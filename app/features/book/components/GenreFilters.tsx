@@ -1,54 +1,56 @@
-import { View, TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { GENRE_LIST, getGenreIcon } from '../types';
 import styles from '../styles/styles.filters';
+import { Genre } from '../types';
 
-const GenreFilters = ({
-  genreFilter,
-  setGenreFilter,
-}: {
-  genreFilter: string;
-  setGenreFilter: (genre: string) => void;
-}) => {
-  // Split genres into two rows
-  const midPoint = Math.ceil(GENRE_LIST.length / 2);
-  const firstRow = GENRE_LIST.slice(0, midPoint);
-  const secondRow = GENRE_LIST.slice(midPoint);
+interface GenreFiltersProps {
+  selectedGenre: string | null;
+  onSelectGenre: (genre: string | null) => void;
+}
 
-  return (
-    <View style={styles.wrapper}>
-      <View style={styles.row}>
-        {firstRow.map(genre => (
-          <TouchableOpacity
-            key={genre}
-            style={styles.genreButton}
-            onPress={() => setGenreFilter(genreFilter === genre ? '' : genre)}
-          >
-            <Ionicons
-              name={getGenreIcon(genre)}
-              size={20}
-              color={genreFilter === genre ? '#007AFF' : '#666'}
-            />
-          </TouchableOpacity>
-        ))}
-      </View>
-      <View style={styles.row}>
-        {secondRow.map(genre => (
-          <TouchableOpacity
-            key={genre}
-            style={styles.genreButton}
-            onPress={() => setGenreFilter(genreFilter === genre ? '' : genre)}
-          >
-            <Ionicons
-              name={getGenreIcon(genre)}
-              size={20}
-              color={genreFilter === genre ? '#007AFF' : '#666'}
-            />
-          </TouchableOpacity>
-        ))}
-      </View>
-    </View>
-  );
+const GENRE_ICONS: Record<Genre, string> = {
+  Adventure: 'compass',
+  Biography: 'person',
+  Fantasy: 'sparkles',
+  Fiction: 'book',
+  Historical: 'time',
+  Horror: 'skull',
+  Mystery: 'search-circle',
+  'Non-Fiction': 'book',
+  Romance: 'heart',
+  'Sci-Fi': 'rocket',
 };
 
-export default GenreFilters;
+export default function GenreFilters({ selectedGenre, onSelectGenre }: GenreFiltersProps) {
+  return (
+    <View style={styles.wrapper}>
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        <TouchableOpacity
+          style={[
+            styles.genreButton,
+            selectedGenre === null && { backgroundColor: '#E3F2FD', borderColor: '#2196F3' },
+          ]}
+          onPress={() => onSelectGenre(null)}
+        >
+          <Ionicons name='apps' size={24} color={selectedGenre === null ? '#2196F3' : '#666'} />
+        </TouchableOpacity>
+        {Object.entries(GENRE_ICONS).map(([genre, icon]) => (
+          <TouchableOpacity
+            key={genre}
+            style={[
+              styles.genreButton,
+              selectedGenre === genre && { backgroundColor: '#E3F2FD', borderColor: '#2196F3' },
+            ]}
+            onPress={() => onSelectGenre(genre)}
+          >
+            <Ionicons
+              name={icon as any}
+              size={24}
+              color={selectedGenre === genre ? '#2196F3' : '#666'}
+            />
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
+  );
+}

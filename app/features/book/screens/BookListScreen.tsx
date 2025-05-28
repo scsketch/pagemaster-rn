@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
 import { useBooks } from '../hooks';
 import styles from '../styles/styles.list';
-import { BookList, BookListHeader } from '../components';
+import { BookList, BookListHeader, GenreFilters } from '../components';
 
 export default function BookListScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -24,6 +24,10 @@ export default function BookListScreen() {
     setGenreFilter,
   } = useBooks();
 
+  const handleGenreSelect = (genre: string | null) => {
+    setGenreFilter(genre || '');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
@@ -33,14 +37,17 @@ export default function BookListScreen() {
           genreFilter={genreFilter}
           setGenreFilter={setGenreFilter}
         />
-        <BookList
-          books={books}
-          isLoading={isLoading}
-          isRefreshing={isRefreshing}
-          hasMore={hasMore}
-          fetchNextPage={fetchNextPage}
-          refresh={refresh}
-        />
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <GenreFilters selectedGenre={genreFilter || null} onSelectGenre={handleGenreSelect} />
+          <BookList
+            books={books}
+            isLoading={isLoading}
+            isRefreshing={isRefreshing}
+            hasMore={hasMore}
+            fetchNextPage={fetchNextPage}
+            refresh={refresh}
+          />
+        </View>
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => navigation.navigate('AddBook', {})}

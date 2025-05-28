@@ -17,15 +17,14 @@ const BookListItem = React.memo(({ book }: { book: Book }) => {
     >
       <View style={styles.bookInfo}>
         <Text style={styles.bookTitle}>{book.title}</Text>
-        <View style={styles.authorGenreRow}>
-          <Text style={styles.bookAuthor}>{book.author}</Text>
-          <View style={styles.genreContainer}>
-            <Text style={styles.bookGenre}>{book.genre}</Text>
-            <Ionicons name={getGenreIcon(book.genre)} size={16} color='#666' />
-          </View>
+        <Text style={styles.bookAuthor}>{book.author}</Text>
+        <View style={styles.genreContainer}>
+          <Text style={styles.bookGenre}>{book.genre}</Text>
+          <Ionicons name={getGenreIcon(book.genre)} size={16} color='#666' />
         </View>
       </View>
     </TouchableOpacity>
   );
 });
+
 export default BookListItem;

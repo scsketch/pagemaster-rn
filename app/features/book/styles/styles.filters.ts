@@ -1,24 +1,27 @@
 import { StyleSheet } from 'react-native';
+import { typography, colors } from '../../../theme';
 
 export default StyleSheet.create({
   wrapper: {
-    paddingVertical: 8,
+    width: 100,
+    borderRightWidth: 1,
+    borderRightColor: colors.border.light,
+    backgroundColor: colors.background,
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 12,
-    marginBottom: 12,
+  scrollView: {
+    flex: 1,
   },
   genreButton: {
-    width: 84,
+    width: 80,
     height: 48,
     borderRadius: 22,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: colors.input.background,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#eee',
+    borderColor: colors.border.light,
+    marginHorizontal: 10,
+    marginVertical: 6,
   },
   leftGradient: {
     position: 'absolute',

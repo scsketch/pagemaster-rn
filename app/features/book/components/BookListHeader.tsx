@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../../auth/hooks/useAuth';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import GenreFilters from './GenreFilters';
 import styles from '../styles/styles.header';
 
 const BookListHeader = ({
@@ -52,7 +51,6 @@ const BookListHeader = ({
           <Ionicons name='log-out-outline' size={24} color='#007AFF' />
         </TouchableOpacity>
       </View>
-      <GenreFilters genreFilter={genreFilter} setGenreFilter={setGenreFilter} />
     </View>
   );
 };

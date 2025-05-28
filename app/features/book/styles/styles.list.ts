@@ -5,14 +5,11 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    alignItems: 'center',
-    width: '100%',
+    flexDirection: 'row',
   },
   innerContainer: {
-    width: '100%',
-    minWidth: 300,
-    maxWidth: 500,
     flex: 1,
+    minWidth: 300,
   },
   header: {
     flexDirection: 'row',
@@ -30,8 +27,8 @@ export default StyleSheet.create({
   },
   listContainer: {
     padding: 16,
-    width: '100%',
     flexGrow: 1,
+    flex: 1,
   },
   bookItem: {
     backgroundColor: colors.input.background,
@@ -49,12 +46,6 @@ export default StyleSheet.create({
   bookTitle: {
     ...typography.subheading,
     color: colors.text.primary,
-  },
-  authorGenreRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
   },
   bookAuthor: {
     ...typography.body,
