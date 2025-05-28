@@ -16,7 +16,7 @@ React-Native mobile client for connecting to Pagemaster bookstore backend. Allow
 
 - Node.js
 - npm
-- Expo Go (Optional - see below)
+- Expo Go (optional to run on your phone - see below)
 
 ## Installation
 
@@ -81,7 +81,7 @@ The app will open in Expo Go.
 5. Press "Add Book" to add a new book
 6. Press a book in the list to view and edit the book's details
 
-## NOTES
+## Notes
 
 1. Authentication Implementation Notes:
 
