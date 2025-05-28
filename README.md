@@ -109,8 +109,11 @@ The app will open in Expo Go.
 5. Mobile Device Support:
 
    - I primarily testing this on the iOS simulator, Chrome browser, and my personal iOS device. It seems to work on the Android simulator as well, but I have not tested it on an Android device.
-   
-## Future Work
+
+6. Development Mode Considerations:
+   - If you inspect the Chrome console to check network requests and notice things happen to be firing twice, it's because of how React runs in development Strict mode. It's a feature used to help debug in development, and is disabled in production builds.
+  
+   - Performance is slower than it would be in a production app because we are running in development mode with the development server.
 
 1. Offline support to add/edit books and sync when back online.
 2. Additional unit tests, E2E tests using Detox.
