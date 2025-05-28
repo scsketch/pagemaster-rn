@@ -136,6 +136,7 @@ export default function AddBookScreen() {
                     value={value}
                     onChangeText={onChange}
                     placeholder='Title'
+                    placeholderTextColor='#999999'
                     autoCorrect={false}
                   />
                   {errors.title && <Text style={styles.errorText}>{errors.title.message}</Text>}
@@ -183,6 +184,7 @@ export default function AddBookScreen() {
                     value={value}
                     onChangeText={onChange}
                     placeholder='Price'
+                    placeholderTextColor='#999999'
                     keyboardType='decimal-pad'
                     autoCorrect={false}
                   />
@@ -200,6 +202,7 @@ export default function AddBookScreen() {
                     value={value}
                     onChangeText={onChange}
                     placeholder='Description'
+                    placeholderTextColor='#999999'
                     multiline
                     numberOfLines={4}
                     autoCorrect={false}
