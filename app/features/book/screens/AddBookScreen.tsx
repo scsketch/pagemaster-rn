@@ -1,4 +1,13 @@
-import { View, Text, TouchableOpacity, TextInput, Alert, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -100,13 +109,19 @@ export default function AddBookScreen() {
     }
   };
 
+  const renderSaveButton = () => (
+    <TouchableOpacity style={styles.saveButton} onPress={handleSubmit(onSubmit)}>
+      <Text style={styles.saveButtonText}>Save</Text>
+    </TouchableOpacity>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.header}>
           <BackButtonX />
           <Text style={styles.headerTitle}>{isEditing ? 'Edit Book' : 'Add Book'}</Text>
-          <View style={styles.headerRight} />
+          {Platform.OS !== 'web' && renderSaveButton()}
         </View>
         <ScrollView style={styles.content}>
           <Controller
@@ -190,9 +205,7 @@ export default function AddBookScreen() {
               </View>
             )}
           />
-          <TouchableOpacity style={styles.saveButton} onPress={handleSubmit(onSubmit)}>
-            <Text style={styles.saveButtonText}>Save</Text>
-          </TouchableOpacity>
+          {Platform.OS === 'web' && renderSaveButton()}
         </ScrollView>
       </View>
     </SafeAreaView>
