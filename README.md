@@ -106,6 +106,10 @@ The app will open in Expo Go.
 
 4. The app has an ErrorBoundary that will catch uncaught errors and display a user friendly error page.
 
+5. Mobile Device Support:
+
+   - I primarily testing this on the iOS simulator, Chrome browser, and my personal iOS device. It seems to work on the Android simulator as well, but I have not tested it on an Android device.
+   
 ## Future Work
 
 1. Offline support to add/edit books and sync when back online.
