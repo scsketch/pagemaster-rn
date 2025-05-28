@@ -44,24 +44,26 @@ export default function BookDetailScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <BackButtonX />
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => navigation.navigate('AddBook', { id })}
-        >
-          <Text style={styles.editButtonText}>Edit</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.title}>{book.title}</Text>
-        <View style={styles.detailsContainer}>
-          <BookDetail label='Author' value={book.author} />
-          <BookDetail label='Genre' value={book.genre} />
-          <BookDetail label='Price' value={`$${book.price.toFixed(2)}`} />
-          <View style={styles.descriptionContainer}>
-            <Text style={styles.detailLabel}>Description</Text>
-            <Text style={styles.descriptionText}>{book.description ?? 'None'}</Text>
+      <View style={styles.innerContainer}>
+        <View style={styles.header}>
+          <BackButtonX />
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={() => navigation.navigate('AddBook', { id })}
+          >
+            <Text style={styles.editButtonText}>Edit</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.content}>
+          <Text style={styles.title}>{book.title}</Text>
+          <View style={styles.detailsContainer}>
+            <BookDetail label='Author' value={book.author} />
+            <BookDetail label='Genre' value={book.genre} />
+            <BookDetail label='Price' value={`$${book.price.toFixed(2)}`} />
+            <View style={styles.descriptionContainer}>
+              <Text style={styles.detailLabel}>Description</Text>
+              <Text style={styles.descriptionText}>{book.description ?? 'None'}</Text>
+            </View>
           </View>
         </View>
       </View>

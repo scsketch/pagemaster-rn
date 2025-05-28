@@ -4,6 +4,14 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    width: '100%',
+    alignItems: 'center',
+  },
+  innerContainer: {
+    width: '100%',
+    minWidth: 300,
+    maxWidth: 500,
+    flex: 1,
   },
   header: {
     flexDirection: 'row',

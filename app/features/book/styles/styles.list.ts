@@ -1,15 +1,24 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    alignItems: 'center',
+    width: '100%',
+  },
+  innerContainer: {
+    width: '100%',
+    minWidth: 300,
+    maxWidth: 500,
+    flex: 1,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
+    width: '100%',
   },
   headerTitle: {
     fontSize: 20,
@@ -21,6 +30,8 @@ export default StyleSheet.create({
   },
   listContainer: {
     padding: 16,
+    width: '100%',
+    flexGrow: 1,
   },
   bookItem: {
     backgroundColor: '#f8f8f8',
@@ -29,9 +40,11 @@ export default StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
     borderColor: '#eee',
+    width: '100%',
   },
   bookInfo: {
     gap: 4,
+    width: '100%',
   },
   bookTitle: {
     fontSize: 18,
@@ -42,6 +55,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
   },
   bookAuthor: {
     fontSize: 14,
@@ -80,6 +94,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+    width: '100%',
   },
   errorText: {
     color: '#ff3b30',
@@ -102,7 +117,7 @@ export default StyleSheet.create({
   },
   searchContainer: {
     flex: 1,
-    padding: 16,
+    width: '100%',
   },
   searchInput: {
     backgroundColor: '#f5f5f5',

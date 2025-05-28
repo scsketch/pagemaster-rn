@@ -5,6 +5,12 @@ export default StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  innerContainer: {
+    width: '100%',
+    minWidth: 300,
+    maxWidth: 500,
   },
   title: {
     fontSize: 28,

@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 
+/**
+ * A hook that provides debounced search functionality to prevent excessive API calls
+ */
 export const useDebounceSearch = (delay: number = 300) => {
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');

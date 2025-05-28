@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  Alert,
-  ScrollView,
-} from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Alert, ScrollView } from 'react-native';
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,11 +6,11 @@ import { z } from 'zod';
 import { NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useBooks } from '../hooks';
 import { useBookMutations } from '../hooks/useBookMutations';
 import { useBookDetail } from '../hooks/useBookDetail';
 import { Genre } from '../types';
 import { BackButtonX, Picker } from '../../../components';
+import styles from '../styles/styles.add';
 
 const GENRE_OPTIONS = [
   'Adventure',
@@ -52,7 +44,6 @@ export default function AddBookScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute();
   const { id } = route.params as { id?: string };
-  const { books } = useBooks();
   const { addBook, updateBook } = useBookMutations('', '');
   const { book } = useBookDetail(id ?? '');
   const isEditing = !!id;
@@ -79,7 +70,7 @@ export default function AddBookScreen() {
         title: book.title,
         author: book.author,
         genre: book.genre,
-        price: book.price.toString(),
+        price: book.price?.toString() ?? '',
         description: book.description,
       });
     }
@@ -111,150 +102,99 @@ export default function AddBookScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <BackButtonX />
-        <Text style={styles.headerTitle}>{isEditing ? 'Edit Book' : 'Add Book'}</Text>
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.submitButtonText}>{isEditing ? 'Save' : 'Add'}</Text>
-        </TouchableOpacity>
+      <View style={styles.innerContainer}>
+        <View style={styles.header}>
+          <BackButtonX />
+          <Text style={styles.headerTitle}>{isEditing ? 'Edit Book' : 'Add Book'}</Text>
+          <View style={styles.headerRight} />
+        </View>
+        <ScrollView style={styles.content}>
+          <Controller
+            control={control}
+            name='title'
+            render={({ field: { onChange, value } }) => (
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder='Title'
+                  autoCorrect={false}
+                />
+                {errors.title && <Text style={styles.errorText}>{errors.title.message}</Text>}
+              </View>
+            )}
+          />
+          <Controller
+            control={control}
+            name='author'
+            render={({ field: { onChange, value } }) => (
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder='Author'
+                  autoCorrect={false}
+                />
+                {errors.author && <Text style={styles.errorText}>{errors.author.message}</Text>}
+              </View>
+            )}
+          />
+          <Controller
+            control={control}
+            name='genre'
+            render={({ field: { onChange, value } }) => (
+              <View style={styles.inputContainer}>
+                <Picker
+                  value={value}
+                  onValueChange={onChange}
+                  items={GENRE_OPTIONS}
+                  placeholder='Select a genre'
+                />
+                {errors.genre && <Text style={styles.errorText}>{errors.genre.message}</Text>}
+              </View>
+            )}
+          />
+          <Controller
+            control={control}
+            name='price'
+            render={({ field: { onChange, value } }) => (
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder='Price'
+                  keyboardType='decimal-pad'
+                  autoCorrect={false}
+                />
+                {errors.price && <Text style={styles.errorText}>{errors.price.message}</Text>}
+              </View>
+            )}
+          />
+          <Controller
+            control={control}
+            name='description'
+            render={({ field: { onChange, value } }) => (
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={[styles.input, styles.descriptionInput]}
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder='Description'
+                  multiline
+                  numberOfLines={4}
+                  autoCorrect={false}
+                />
+              </View>
+            )}
+          />
+          <TouchableOpacity style={styles.saveButton} onPress={handleSubmit(onSubmit)}>
+            <Text style={styles.saveButtonText}>Save</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
-      <ScrollView style={styles.content}>
-        <Controller
-          control={control}
-          name='title'
-          render={({ field: { onChange, value } }) => (
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                value={value}
-                onChangeText={onChange}
-                placeholder='Title'
-                autoCorrect={false}
-              />
-              {errors.title && <Text style={styles.errorText}>{errors.title.message}</Text>}
-            </View>
-          )}
-        />
-        <Controller
-          control={control}
-          name='author'
-          render={({ field: { onChange, value } }) => (
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                value={value}
-                onChangeText={onChange}
-                placeholder='Author'
-                autoCorrect={false}
-              />
-              {errors.author && <Text style={styles.errorText}>{errors.author.message}</Text>}
-            </View>
-          )}
-        />
-        <Controller
-          control={control}
-          name='genre'
-          render={({ field: { onChange, value } }) => (
-            <View style={styles.inputContainer}>
-              <Picker
-                value={value}
-                onValueChange={onChange}
-                items={GENRE_OPTIONS}
-                placeholder='Select a genre'
-              />
-              {errors.genre && <Text style={styles.errorText}>{errors.genre.message}</Text>}
-            </View>
-          )}
-        />
-        <Controller
-          control={control}
-          name='price'
-          render={({ field: { onChange, value } }) => (
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                value={value}
-                onChangeText={onChange}
-                placeholder='Price'
-                keyboardType='decimal-pad'
-                autoCorrect={false}
-              />
-              {errors.price && <Text style={styles.errorText}>{errors.price.message}</Text>}
-            </View>
-          )}
-        />
-        <Controller
-          control={control}
-          name='description'
-          render={({ field: { onChange, value } }) => (
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={[styles.input, styles.descriptionInput]}
-                value={value}
-                onChangeText={onChange}
-                placeholder='Description'
-                multiline
-                numberOfLines={4}
-                autoCorrect={false}
-              />
-            </View>
-          )}
-        />
-      </ScrollView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-  },
-  backButton: {
-    padding: 8,
-  },
-  submitButton: {
-    padding: 8,
-  },
-  submitButtonText: {
-    color: '#007AFF',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  content: {
-    padding: 20,
-  },
-  inputContainer: {
-    marginBottom: 16,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    backgroundColor: '#f9f9f9',
-  },
-  descriptionInput: {
-    height: 100,
-    textAlignVertical: 'top',
-  },
-  errorText: {
-    color: '#ff3b30',
-    fontSize: 14,
-    marginTop: 4,
-  },
-});

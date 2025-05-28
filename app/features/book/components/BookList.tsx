@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, Platform } from 'react-native';
 import styles from '../styles/styles.list';
 import { Book } from '../types';
 import BookListItem from './BookListItem';
@@ -31,23 +31,41 @@ const BookList = ({
   };
 
   return (
-    <FlatList
-      data={books}
-      renderItem={renderBookItem}
-      keyExtractor={item => item.id}
-      contentContainerStyle={styles.listContainer}
-      onEndReached={() => {
-        if (!isLoading && !isRefreshing && hasMore) {
-          fetchNextPage();
-        }
-      }}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={renderFooter}
-      refreshing={isRefreshing}
-      onRefresh={refresh}
-      maxToRenderPerBatch={10}
-      windowSize={10}
-    />
+    <View style={{ flex: 1 }}>
+      <FlatList
+        data={books}
+        renderItem={renderBookItem}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.listContainer}
+        onEndReached={() => {
+          if (!isLoading && !isRefreshing && hasMore) {
+            fetchNextPage();
+          }
+        }}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={renderFooter}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
+        maxToRenderPerBatch={10}
+        windowSize={10}
+        scrollEnabled={true}
+        onScrollBeginDrag={() => {
+          if (Platform.OS === 'web') {
+            document.body.style.cursor = 'grabbing';
+          }
+        }}
+        onScrollEndDrag={() => {
+          if (Platform.OS === 'web') {
+            document.body.style.cursor = 'grab';
+          }
+        }}
+        onTouchStart={() => {
+          if (Platform.OS === 'web') {
+            document.body.style.cursor = 'grab';
+          }
+        }}
+      />
+    </View>
   );
 };
 

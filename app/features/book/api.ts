@@ -2,6 +2,9 @@ import { AxiosResponse } from 'axios';
 import { api } from '../../api';
 import { AddBookData, Book, PaginatedBooksParams, PaginatedBooksResponse } from './types';
 
+/**
+ * Fetches a paginated list of books with optional search and genre filtering
+ */
 export async function getBooks(
   token: string | null,
   page: number = 1,
@@ -33,6 +36,9 @@ export async function getBooks(
   return res.data;
 }
 
+/**
+ * Fetches a single book by its ID
+ */
 export async function getBook(token: string | null, id: string): Promise<Book> {
   const config: any = {};
 
@@ -44,6 +50,9 @@ export async function getBook(token: string | null, id: string): Promise<Book> {
   return res.data;
 }
 
+/**
+ * Creates a new book
+ */
 export async function createBook(token: string | null, bookData: AddBookData): Promise<Book> {
   const config: any = {};
 
@@ -55,6 +64,9 @@ export async function createBook(token: string | null, bookData: AddBookData): P
   return res.data;
 }
 
+/**
+ * Updates an existing book's information
+ */
 export async function updateBook(
   token: string | null,
   id: string,

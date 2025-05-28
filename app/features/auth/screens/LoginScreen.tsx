@@ -8,8 +8,10 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Pagemaster Books</Text>
-      <LoginForm login={login} signUp={signUp} />
+      <View style={styles.innerContainer}>
+        <Text style={styles.title}>Pagemaster Books</Text>
+        <LoginForm login={login} signUp={signUp} />
+      </View>
     </View>
   );
 }

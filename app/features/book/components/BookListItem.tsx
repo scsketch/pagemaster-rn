@@ -10,8 +10,6 @@ import styles from '../styles/styles.list';
 const BookListItem = React.memo(({ book }: { book: Book }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const count = useRef(0);
-  count.current++;
   return (
     <TouchableOpacity
       style={styles.bookItem}

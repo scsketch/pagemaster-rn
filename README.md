@@ -34,7 +34,9 @@ cp .env.example .env
 
 ## Run on the web
 
-This was made as mobile first but you can test it in a browser. Use your browser's dev tools try to different responsive sizes.
+This was made as mobile first, so see instructions below to run on your phone. But you can also test it in a browser.
+
+For web scrolling is done with the trackpad / mousewheel (no click + drag);
 
 ```bash
 npm run web
