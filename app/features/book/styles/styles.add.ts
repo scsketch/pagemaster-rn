@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { typography, colors } from '../../../theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     alignItems: 'center',
   },
   innerContainer: {
@@ -18,12 +19,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: colors.border.light,
   },
   headerTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    ...typography.heading,
+    color: colors.text.primary,
   },
   headerRight: {
     width: 40, // To maintain header balance
@@ -37,12 +37,12 @@ export default StyleSheet.create({
     width: '100%',
   },
   input: {
+    ...typography.input,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: colors.border.medium,
     borderRadius: 8,
     padding: 12,
-    fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: colors.input.background,
     width: '100%',
   },
   descriptionInput: {
@@ -50,20 +50,19 @@ export default StyleSheet.create({
     textAlignVertical: 'top',
   },
   errorText: {
-    color: '#ff3b30',
-    fontSize: 14,
+    ...typography.error,
+    color: colors.text.error,
     marginTop: 4,
   },
   saveButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 8,
   },
   saveButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    ...typography.button,
+    color: colors.background,
   },
 });

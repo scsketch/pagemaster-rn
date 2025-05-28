@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { typography, colors } from '../../../theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     width: '100%',
     alignItems: 'center',
   },
@@ -19,23 +20,21 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: colors.border.light,
   },
   editButton: {
     padding: 8,
   },
   editButtonText: {
-    color: '#007AFF',
-    fontSize: 16,
-    fontWeight: '600',
+    ...typography.button,
+    color: colors.primary,
   },
   content: {
     padding: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#333',
+    ...typography.heading,
+    color: colors.text.primary,
     marginBottom: 24,
   },
   detailsContainer: {
@@ -47,16 +46,16 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: colors.border.light,
   },
   detailLabel: {
-    fontSize: 16,
-    color: '#666',
+    ...typography.body,
+    color: colors.text.secondary,
   },
   detailValue: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333',
+    ...typography.body,
+    fontFamily: typography.label.fontFamily,
+    color: colors.text.primary,
   },
   errorContainer: {
     flex: 1,
@@ -65,34 +64,34 @@ export default StyleSheet.create({
     padding: 16,
   },
   errorText: {
-    color: '#ff3b30',
+    ...typography.error,
+    color: colors.text.error,
     textAlign: 'center',
     marginBottom: 16,
   },
   retryButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: colors.primary,
     padding: 12,
     borderRadius: 8,
   },
   retryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    ...typography.button,
+    color: colors.background,
   },
   descriptionContainer: {
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: colors.border.light,
   },
   descriptionText: {
-    fontSize: 16,
-    color: '#333',
+    ...typography.body,
+    color: colors.text.primary,
     marginTop: 8,
     lineHeight: 24,
   },
   loadingText: {
-    color: '#666',
-    fontSize: 16,
+    ...typography.body,
+    color: colors.text.secondary,
     textAlign: 'center',
   },
 });

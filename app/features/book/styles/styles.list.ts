@@ -1,9 +1,10 @@
 import { StyleSheet, Platform } from 'react-native';
+import { typography, colors } from '../../../theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     alignItems: 'center',
     width: '100%',
   },
@@ -21,9 +22,8 @@ export default StyleSheet.create({
     width: '100%',
   },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
+    ...typography.heading,
+    color: colors.text.primary,
   },
   logoutButton: {
     padding: 8,
@@ -34,12 +34,12 @@ export default StyleSheet.create({
     flexGrow: 1,
   },
   bookItem: {
-    backgroundColor: '#f8f8f8',
+    backgroundColor: colors.input.background,
     padding: 16,
     borderRadius: 8,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#eee',
+    borderColor: colors.border.light,
     width: '100%',
   },
   bookInfo: {
@@ -47,9 +47,8 @@ export default StyleSheet.create({
     width: '100%',
   },
   bookTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    ...typography.subheading,
+    color: colors.text.primary,
   },
   authorGenreRow: {
     flexDirection: 'row',
@@ -58,8 +57,8 @@ export default StyleSheet.create({
     width: '100%',
   },
   bookAuthor: {
-    fontSize: 14,
-    color: '#666',
+    ...typography.body,
+    color: colors.text.secondary,
   },
   genreContainer: {
     flexDirection: 'row',
@@ -67,15 +66,15 @@ export default StyleSheet.create({
     gap: 4,
   },
   bookGenre: {
-    fontSize: 14,
-    color: '#666',
+    ...typography.body,
+    color: colors.text.secondary,
     fontStyle: 'italic',
   },
   addButton: {
     position: 'absolute',
     bottom: 24,
     right: 24,
-    backgroundColor: '#007AFF',
+    backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 30,
     elevation: 3,
@@ -85,9 +84,8 @@ export default StyleSheet.create({
     shadowRadius: 3.84,
   },
   addButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    ...typography.button,
+    color: colors.background,
   },
   errorContainer: {
     flex: 1,
@@ -97,19 +95,19 @@ export default StyleSheet.create({
     width: '100%',
   },
   errorText: {
-    color: '#ff3b30',
+    ...typography.error,
+    color: colors.text.error,
     textAlign: 'center',
     marginBottom: 16,
   },
   retryButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: colors.primary,
     padding: 12,
     borderRadius: 8,
   },
   retryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    ...typography.button,
+    color: colors.background,
   },
   footer: {
     paddingVertical: 20,
@@ -120,9 +118,9 @@ export default StyleSheet.create({
     width: '100%',
   },
   searchInput: {
-    backgroundColor: '#f5f5f5',
+    ...typography.input,
+    backgroundColor: colors.input.background,
     padding: 12,
     borderRadius: 8,
-    fontSize: 16,
   },
 });

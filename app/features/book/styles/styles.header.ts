@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { typography, colors } from '../../../theme';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: colors.border.light,
   },
   headerRow: {
     flexDirection: 'row',
@@ -17,7 +18,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: colors.input.background,
     borderRadius: 8,
     paddingHorizontal: 12,
   },
@@ -25,10 +26,10 @@ export default StyleSheet.create({
     marginRight: 8,
   },
   searchInput: {
+    ...typography.input,
     flex: 1,
     height: 40,
-    fontSize: 16,
-    color: '#333',
+    color: colors.text.primary,
   },
   logoutButton: {
     padding: 4,

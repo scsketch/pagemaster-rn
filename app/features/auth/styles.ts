@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { typography, colors } from '../../theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
   },
   scrollContent: {
     flexGrow: 1,
@@ -16,11 +17,11 @@ export default StyleSheet.create({
     maxWidth: 500,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    ...typography.title,
     marginTop: 60,
     marginBottom: 40,
     textAlign: 'center',
+    color: colors.text.primary,
   },
   form: {
     gap: 20,
@@ -31,17 +32,16 @@ export default StyleSheet.create({
     marginBottom: 24,
   },
   label: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333',
+    ...typography.label,
+    color: colors.text.primary,
   },
   input: {
+    ...typography.input,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: colors.border.medium,
     borderRadius: 8,
     padding: 12,
-    fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: colors.input.background,
   },
   passwordContainer: {
     position: 'relative',
@@ -57,7 +57,7 @@ export default StyleSheet.create({
     padding: 4,
   },
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
@@ -69,36 +69,34 @@ export default StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#007AFF',
+    borderColor: colors.primary,
   },
   buttonDisabled: {
-    backgroundColor: '#ccc',
-    borderColor: '#ccc',
+    backgroundColor: colors.button.disabled,
+    borderColor: colors.button.disabled,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    ...typography.button,
+    color: colors.background,
   },
   secondaryButtonText: {
-    color: '#007AFF',
-    fontSize: 16,
-    fontWeight: '600',
+    ...typography.button,
+    color: colors.primary,
   },
   inputError: {
-    borderColor: '#ff3b30',
+    borderColor: colors.text.error,
     borderWidth: 1,
   },
   errorText: {
-    color: '#ff3b30',
-    fontSize: 12,
+    ...typography.error,
+    color: colors.text.error,
     position: 'absolute',
     bottom: -20,
     left: 0,
   },
   authErrorText: {
-    color: '#ff3b30',
-    fontSize: 14,
+    ...typography.error,
+    color: colors.text.error,
     textAlign: 'center',
   },
   errorContainer: {
