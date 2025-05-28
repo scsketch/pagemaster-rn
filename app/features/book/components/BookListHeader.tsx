@@ -25,12 +25,14 @@ const BookListHeader = ({
   const handleLogout = async () => {
     try {
       await logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      // Always go back
       navigation.reset({
         index: 0,
         routes: [{ name: 'Login' }],
       });
-    } catch (error) {
-      console.error('Logout failed:', error);
     }
   };
 
@@ -44,7 +46,7 @@ const BookListHeader = ({
             value={search}
             onChangeText={setSearch}
             placeholder='Search books...'
-            placeholderTextColor='#666'
+            placeholderTextColor='#999999'
             autoCapitalize='none'
             autoCorrect={false}
             accessibilityLabel='Search books by title or author'
