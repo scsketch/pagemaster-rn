@@ -3,12 +3,11 @@ export const fonts = {
   medium: 'Poppins-Medium',
   semiBold: 'Poppins-SemiBold',
   inter: 'Inter-Regular',
-  playfair: 'PlayfairDisplay-Regular',
 } as const;
 
 export const typography = {
   title: {
-    fontFamily: fonts.playfair,
+    fontFamily: fonts.semiBold,
     fontSize: 32,
     letterSpacing: 0.5,
   },

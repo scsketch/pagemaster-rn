@@ -6,6 +6,5 @@ export const loadFonts = async () => {
     'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
     'Poppins-SemiBold': require('../../assets/fonts/Poppins-SemiBold.ttf'),
     'Inter-Regular': require('../../assets/fonts/Inter-Regular.ttf'),
-    'PlayfairDisplay-Regular': require('../../assets/fonts/PlayfairDisplay-Regular.ttf'),
   });
 };
