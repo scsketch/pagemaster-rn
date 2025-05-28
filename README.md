@@ -42,7 +42,7 @@ This was made as mobile first, but you can also test it in a browser.
 npm run web
 ```
 
-You can then press `w` in the terminal, or open your browser at `http://localhost:8081/`
+You can then press `w` in the terminal. If a new browser tab doesn't open then open one at `http://localhost:8081/`
 
 ## Run on your mobile device
 
