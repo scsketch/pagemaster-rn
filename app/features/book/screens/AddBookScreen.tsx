@@ -44,7 +44,7 @@ export default function AddBookScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute();
   const { id } = route.params as { id?: string };
-  const { addBook, updateBook } = useBookMutations('', '');
+  const { addBook, updateBook } = useBookMutations();
   const { book } = useBookDetail(id ?? '');
   const isEditing = !!id;
 

@@ -6,7 +6,7 @@ import { AddBookData, Book } from '../types';
 /**
  * Hook for managing book mutations (add/update)
  */
-export const useBookMutations = (search: string, genreFilter: string) => {
+export const useBookMutations = () => {
   const { getToken } = useAuth();
   const queryClient = useQueryClient();
 
@@ -17,10 +17,8 @@ export const useBookMutations = (search: string, genreFilter: string) => {
       return api.createBook(token, bookData);
     },
     onSuccess: newBook => {
-      // Invalidate list queries
       queryClient.invalidateQueries({ queryKey: ['books'] });
-      // Update detail cache
-      queryClient.setQueryData(['books', 'detail', newBook.id], newBook);
+      queryClient.invalidateQueries({ queryKey: ['books', 'detail', newBook.id] });
     },
   });
 
@@ -28,22 +26,21 @@ export const useBookMutations = (search: string, genreFilter: string) => {
     mutationFn: async ({ id, bookData }: { id: string; bookData: AddBookData }) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
+
       // Optimistically update the cache
       const previousBook = queryClient.getQueryData<Book>(['books', 'detail', id]);
       if (previousBook) {
         queryClient.setQueryData(['books', 'detail', id], {
           ...previousBook,
           ...bookData,
-          id: previousBook.id, // Ensure we keep the original ID
+          id, // Ensure we keep the original ID
         });
       }
       return api.updateBook(token, id, bookData);
     },
     onSuccess: updatedBook => {
-      // Invalidate list queries
       queryClient.invalidateQueries({ queryKey: ['books'] });
-      // Update detail cache with server response
-      queryClient.setQueryData(['books', 'detail', updatedBook.id], updatedBook);
+      queryClient.invalidateQueries({ queryKey: ['books', 'detail', updatedBook.id] });
     },
     onError: (_, { id }) => {
       // Revert optimistic update on error

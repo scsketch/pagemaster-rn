@@ -1,7 +1,6 @@
-import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { GENRE_LIST, getGenreIcon } from '../types';
-import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../styles/styles.filters';
 
 const GenreFilters = ({
@@ -11,20 +10,15 @@ const GenreFilters = ({
   genreFilter: string;
   setGenreFilter: (genre: string) => void;
 }) => {
+  // Split genres into two rows
+  const midPoint = Math.ceil(GENRE_LIST.length / 2);
+  const firstRow = GENRE_LIST.slice(0, midPoint);
+  const secondRow = GENRE_LIST.slice(midPoint);
+
   return (
     <View style={styles.wrapper}>
-      <LinearGradient
-        colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0)']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.leftGradient}
-      />
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={true}
-        contentContainerStyle={styles.container}
-      >
-        {GENRE_LIST.map(genre => (
+      <View style={styles.row}>
+        {firstRow.map(genre => (
           <TouchableOpacity
             key={genre}
             style={styles.genreButton}
@@ -37,13 +31,22 @@ const GenreFilters = ({
             />
           </TouchableOpacity>
         ))}
-      </ScrollView>
-      <LinearGradient
-        colors={['rgba(255,255,255,0)', 'rgba(255,255,255,1)']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.rightGradient}
-      />
+      </View>
+      <View style={styles.row}>
+        {secondRow.map(genre => (
+          <TouchableOpacity
+            key={genre}
+            style={styles.genreButton}
+            onPress={() => setGenreFilter(genreFilter === genre ? '' : genre)}
+          >
+            <Ionicons
+              name={getGenreIcon(genre)}
+              size={20}
+              color={genreFilter === genre ? '#007AFF' : '#666'}
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 };

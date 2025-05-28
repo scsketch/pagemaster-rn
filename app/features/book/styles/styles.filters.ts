@@ -2,16 +2,17 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   wrapper: {
-    position: 'relative',
-  },
-  container: {
-    paddingHorizontal: 8,
     paddingVertical: 8,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     gap: 12,
+    marginBottom: 12,
   },
   genreButton: {
-    width: 44,
-    height: 44,
+    width: 84,
+    height: 48,
     borderRadius: 22,
     backgroundColor: '#f8f8f8',
     justifyContent: 'center',

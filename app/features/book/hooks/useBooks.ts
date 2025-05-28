@@ -38,7 +38,7 @@ export const useBooks = () => {
   });
 
   const books = booksData?.pages.flatMap(page => page.data) ?? [];
-  const { addBook, updateBook } = useBookMutations(debouncedSearch, genreFilter);
+  const { addBook, updateBook } = useBookMutations();
 
   return {
     books,

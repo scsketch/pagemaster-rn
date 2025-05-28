@@ -46,7 +46,7 @@ export default StyleSheet.create({
     width: '100%',
   },
   descriptionInput: {
-    height: 100,
+    height: 150,
     textAlignVertical: 'top',
   },
   errorText: {
