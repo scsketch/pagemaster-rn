@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useAuth } from '../../auth';
 import * as api from '../api';
@@ -8,7 +8,6 @@ import { useBookMutations } from './useBookMutations';
 
 export const useBooks = () => {
   const { getToken } = useAuth();
-  const queryClient = useQueryClient();
   const { search, setSearch, debouncedSearch } = useDebounceSearch();
   const [genreFilter, setGenreFilter] = useState('');
 
@@ -25,10 +24,13 @@ export const useBooks = () => {
     queryFn: async ({ pageParam = 1 }) => {
       const token = await getToken();
       if (!token) throw new Error('Unauthorized');
+
+      // Get the books
       const response = await api.getBooks(token, pageParam as number, debouncedSearch, genreFilter);
       return response;
     },
     getNextPageParam: lastPage => {
+      // How do we determine the next page
       if (lastPage.page < lastPage.totalPages) {
         return lastPage.page + 1;
       }

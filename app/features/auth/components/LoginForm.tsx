@@ -1,28 +1,30 @@
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
 import styles from '../styles';
 import { NavigationProp, useNavigation, useIsFocused } from '@react-navigation/native';
 import { RootStackParamList } from '../../../navigation/AppNavigator';
-import { Ionicons } from '@expo/vector-icons';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import React from 'react';
+import PasswordInput from './PasswordInput';
+import EyeButton from './EyeButton';
+import AuthButton from './AuthButton';
+import EmailEntry from './EmailEntry';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
-type LoginFormInput = z.infer<typeof loginSchema>;
+export type LoginFormInput = z.infer<typeof loginSchema>;
 
-const LoginForm = ({
-  login,
-  signUp,
-}: {
+interface LoginFormProps {
   login: (data: LoginFormInput) => Promise<void>;
   signUp: (data: LoginFormInput) => Promise<void>;
-}) => {
+}
+
+const LoginForm = ({ login, signUp }: LoginFormProps) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const isFocused = useIsFocused();
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +38,7 @@ const LoginForm = ({
   } = useForm<LoginFormInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'sam@pagemaster.com',
+      email: 'test@pagemaster.com',
       password: 'password',
     },
   });
@@ -81,20 +83,7 @@ const LoginForm = ({
           control={control}
           name='email'
           render={({ field: { onChange, value } }) => (
-            <>
-              <TextInput
-                style={[styles.input, errors.email && styles.inputError]}
-                placeholder='Enter your email'
-                value={value}
-                onChangeText={onChange}
-                keyboardType='email-address'
-                autoCapitalize='none'
-                autoCorrect={false}
-                autoComplete='email'
-                editable={!isLoading}
-              />
-              {errors.email && <Text style={styles.errorText}>{errors.email.message}</Text>}
-            </>
+            <EmailEntry onChange={onChange} value={value} errors={errors} editable={!isLoading} />
           )}
         />
       </View>
@@ -106,23 +95,14 @@ const LoginForm = ({
           render={({ field: { onChange, value } }) => (
             <>
               <View style={styles.passwordContainer}>
-                <TextInput
-                  style={[styles.input, styles.passwordInput, errors.password && styles.inputError]}
-                  placeholder='Enter your password'
+                <PasswordInput
                   value={value}
-                  onChangeText={onChange}
-                  secureTextEntry={!showPassword}
-                  autoCapitalize='none'
-                  autoComplete='password'
+                  onChange={onChange}
+                  errors={errors}
+                  showPassword={showPassword}
                   editable={!isLoading}
                 />
-                <TouchableOpacity
-                  style={styles.eyeButton}
-                  onPress={() => setShowPassword(!showPassword)}
-                  disabled={isLoading}
-                >
-                  <Ionicons name={showPassword ? 'eye' : 'eye-off'} size={24} color='#666' />
-                </TouchableOpacity>
+                <EyeButton show={showPassword} setShow={setShowPassword} disabled={isLoading} />
               </View>
               {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
             </>
@@ -132,21 +112,17 @@ const LoginForm = ({
       <View style={styles.errorContainer}>
         {errorMessage ? <Text style={styles.authErrorText}>{errorMessage}</Text> : null}
       </View>
-      <TouchableOpacity
-        style={[styles.button, (isLoading || !isFocused) && styles.buttonDisabled]}
+      <AuthButton
         onPress={handleSubmit(handleLogin)}
         disabled={isLoading || !isFocused}
-      >
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.secondaryButton, (isLoading || !isFocused) && styles.buttonDisabled]}
+        text='Login'
+      />
+      <AuthButton
         onPress={handleSubmit(handleSignUp)}
         disabled={isLoading || !isFocused}
-      >
-        <Text style={styles.secondaryButtonText}>Sign Up</Text>
-      </TouchableOpacity>
+        text='Sign Up'
+        secondary
+      />
     </View>
   );
 };

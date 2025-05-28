@@ -4,6 +4,15 @@ import { Book } from '../types';
 import BookListItem from './BookListItem';
 import React from 'react';
 
+interface BookListProps {
+  books: Book[];
+  isLoading: boolean;
+  isRefreshing: boolean;
+  hasMore: boolean;
+  fetchNextPage: () => void;
+  refresh: () => void;
+}
+
 const BookList = ({
   books,
   isLoading,
@@ -11,14 +20,7 @@ const BookList = ({
   hasMore,
   fetchNextPage,
   refresh,
-}: {
-  books: Book[];
-  isLoading: boolean;
-  isRefreshing: boolean;
-  hasMore: boolean;
-  fetchNextPage: () => void;
-  refresh: () => void;
-}) => {
+}: BookListProps) => {
   const renderBookItem = ({ item }: { item: Book }) => <BookListItem book={item} />;
 
   const renderFooter = () => {

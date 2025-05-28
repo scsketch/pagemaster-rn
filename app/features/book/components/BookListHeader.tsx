@@ -6,17 +6,19 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import styles from '../styles/styles.header';
 
+interface BookListHeaderProps {
+  search: string;
+  setSearch: (search: string) => void;
+  genreFilter: string;
+  setGenreFilter: (genre: string) => void;
+}
+
 const BookListHeader = ({
   search,
   setSearch,
   genreFilter,
   setGenreFilter,
-}: {
-  search: string;
-  setSearch: (search: string) => void;
-  genreFilter: string;
-  setGenreFilter: (genre: string) => void;
-}) => {
+}: BookListHeaderProps) => {
   const { logout } = useAuth();
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
