@@ -2,6 +2,8 @@
 
 React-Native mobile client for connecting to Pagemaster bookstore backend. Allows managing and viewing of books.
 
+![image](https://github.com/user-attachments/assets/fb7bb637-951b-4b69-bb8e-ca4e2f6632e9)
+
 ## Tools and Technology
 
 - **Framework:** React-Native w/ Expo
@@ -34,9 +36,7 @@ cp .env.example .env
 
 ## Run on the web
 
-This was made as mobile first, so see instructions below to run on your phone. But you can also test it in a browser.
-
-For web scrolling is done with the trackpad / mousewheel (no click + drag);
+This was made as mobile first, but you can also test it in a browser.
 
 ```bash
 npm run web
