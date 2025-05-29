@@ -11,6 +11,7 @@ React-Native + Expo client for connecting to Pagemaster bookstore backend. Allow
 - **Framework:** React-Native w/ Expo
 - **Language:** TypeScript
 - **API State Management:** Tanstack Query
+- **HTTP Client:** Axios
 - **Navigation:** React-Navigation
 - **Validation:** zod
 - **AI Tooling:** Cursor IDE
