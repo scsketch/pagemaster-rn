@@ -21,11 +21,11 @@ React-Native + Expo client for connecting to Pagemaster bookstore backend. Allow
 - npm
 - Expo Go (optional to run on your phone - see below)
 
-## Installation
+## Run the Application 
 
 Follow these steps to get the application running:
 
-### 1. Install Dependencies
+### 1. Install dependencies
 
 ```bash
 npm install
@@ -37,7 +37,7 @@ npm install
 cp .env.example .env
 ```
 
-## Run on the web
+### 3A. Run on the web
 
 This was made as mobile first, but you can also test it in a browser.
 
@@ -47,11 +47,11 @@ npm run web
 
 You can then press `w` in the terminal. If a new browser tab doesn't open then open one at `http://localhost:8081/`
 
-## Run on your mobile device
+### 3B. Run on your mobile device
 
 _IMPORTANT:_ Make sure your mobile device is on the same WiFi network as your computer running the Pagemaster backend. Otherwise the React-Native client running on your phone won't be able to connect to the backend running on your machine.
 
-### 1. Modify .env file
+#### - Modify .env file
 
 Replace `EXPO_PUBLIC_API_URL` in the `.env` file with your local IP, so it looks like:
 
@@ -59,7 +59,7 @@ Replace `EXPO_PUBLIC_API_URL` in the `.env` file with your local IP, so it looks
 EXPO_PUBLIC_API_URL=http://192.168.1.80:3000/api/v1
 ```
 
-### 2. Start the development server
+#### - Start the development server
 
 ```bash
 npm start
@@ -67,7 +67,7 @@ npm start
 
 You should see a QR code printed in the terminal.
 
-### 3. Download Expo Go from the app store
+### 3. Download Expo Go from the App Store on your device
 
 Expo Go is used for easily testing React-Native development builds on your device.
 
@@ -98,7 +98,7 @@ The app will open in Expo Go.
 2. Accessibility:
 
    - All text colors meet WCAG AA (4.5:1) or AAA (7:1) contrast ratios
-   - Screen reader support including proper labels, hints, and roles for interactive elements. To test press CTRL+F5 in Chrome, or use your screen reader on your mobile device (ie: VoiceOver for iOS).
+   - Screen reader support including proper labels, hints, and roles for interactive elements. To test press CTRL+F5 in Chrome, or use your screen reader on your mobile device (eg: VoiceOver for iOS).
    - Keyboard navigable
 
 3. Tests are minimal for demonstration purposes (run `npm test`)
@@ -107,7 +107,7 @@ The app will open in Expo Go.
 
 5. Mobile Device Support:
 
-   - I primarily testing this on the iOS simulator, Chrome browser, and a physical iPhone. It seems to work on the Android simulator as well, but I have not tested it on an Android device.
+   - I primarily tested this on the iOS simulator, Chrome browser, and a physical iPhone. It seems to work on the Android simulator as well, but I have not tested it on an Android device.
 
 6. Development Mode Considerations:
    - If you inspect the Chrome console to check the network and notice requests are firing twice, it's because of how React runs in development Strict mode. It's a feature used to help debug in development, and is disabled in production builds.
