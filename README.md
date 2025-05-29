@@ -1,6 +1,6 @@
 # Pagemaster React-Native Client
 
-React-Native mobile client for connecting to Pagemaster bookstore backend. Allows managing and viewing of books.
+React-Native + Expo client for connecting to Pagemaster bookstore backend. Allows managing and viewing of books.
 
 <img width="1287" alt="image" src="https://github.com/user-attachments/assets/6ad08294-71b0-4d49-b0ec-ba840338fa58" />
 
