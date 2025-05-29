@@ -49,7 +49,7 @@ You can then press `w` in the terminal. If a new browser tab doesn't open then o
 
 ### 3B. Run on your mobile device
 
-_IMPORTANT:_ Make sure your mobile device is on the same WiFi network as your computer running the Pagemaster backend. Otherwise the React-Native client running on your phone won't be able to connect to the backend running on your machine (you will see a "Unable to connect to server" message when you try to sign up / log in).
+_IMPORTANT:_ Make sure your mobile device is on the same WiFi network as your computer running the Pagemaster backend. Otherwise the React-Native client running on your phone won't be able to connect to the backend running on your machine (you will see an "Unable to connect to server" message when you try to sign up / log in).
 
 #### - Modify .env file
 
