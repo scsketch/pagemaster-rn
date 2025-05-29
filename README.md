@@ -43,7 +43,7 @@ This was made as mobile first, but you can also test it in a browser.
 npm run web
 ```
 
-You can then press `w` in the terminal. If a new browser tab doesn't open then open one at `http://localhost:8081/`
+If a new browser tab doesn't open automatially, press `w` in the terminal or open a browser tab at `http://localhost:8081/`
 
 ### 3B. Run on your mobile device
 
