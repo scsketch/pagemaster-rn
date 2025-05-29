@@ -99,7 +99,7 @@ The app will open in Expo Go.
 2. Accessibility:
 
    - All text colors meet WCAG AA (4.5:1) or AAA (7:1) contrast ratios
-   - Screen reader support including proper labels, hints, and roles for interactive elements. To test press CTRL+F5 in Chrome, or use your screen reader on your mobile device (eg: VoiceOver for iOS).
+   - Screen reader support including proper labels, hints, and roles for interactive elements. To test press CMD+F5 in Chrome, or use your screen reader on your mobile device (eg: VoiceOver for iOS).
    - Keyboard navigable
 
 3. Tests are minimal for demonstration purposes (run `npm test`)
