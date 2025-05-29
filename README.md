@@ -118,3 +118,4 @@ The app will open in Expo Go.
 2. Additional unit tests, E2E tests using Detox.
 3. Additional attention to accessibility
 4. Upload / associate images with books.
+5. More scalable styling solution.
