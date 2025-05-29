@@ -13,7 +13,7 @@ React-Native mobile client for connecting to Pagemaster bookstore backend. Allow
 - **API State Management:** Tanstack Query
 - **Navigation:** React-Navigation
 - **Validation:** zod
-- **AI Tooling** Cursor
+- **AI Tooling** Cursor IDE
 
 ## Prerequisites
 
