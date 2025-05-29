@@ -86,7 +86,7 @@ The app will open in Expo Go.
 
 ## Notes
 
-1. Authentication Implementation Notes:
+1. Authentication:
 
    - Mobile: JWT tokens are stored in SecureStore (expo-secure-store), which provides encrypted storage
    - Web: Currently using localStorage for token storage (not recommended for production)
