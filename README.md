@@ -49,7 +49,7 @@ If a new browser tab doesn't open automatically, press `w` in the terminal or op
 
 _IMPORTANT:_ Make sure your mobile device is on the same WiFi network as your computer running the Pagemaster backend. Otherwise the React-Native client running on your phone won't be able to connect to the backend running on your machine (you will see an "Unable to connect to server" message when you try to sign up / log in).
 
-#### - Modify .env file
+#### 1. Modify .env file
 
 Replace `EXPO_PUBLIC_API_URL` in the `.env` file with your local IP, so it looks like:
 
@@ -57,7 +57,7 @@ Replace `EXPO_PUBLIC_API_URL` in the `.env` file with your local IP, so it looks
 EXPO_PUBLIC_API_URL=http://192.168.1.80:3000/api/v1
 ```
 
-#### - Start the development server
+#### 2. Start the development server
 
 ```bash
 npm start
@@ -65,22 +65,22 @@ npm start
 
 You should see a QR code printed in the terminal.
 
-### 3. Download Expo Go from the App Store on your device
+#### 3. Download Expo Go from the App Store on your device
 
 Expo Go is used for easily testing React-Native development builds on your device.
 
-### 4. Scan the QR code with your device's camera
+#### 4. Scan the QR code with your device's camera
 
 The app will open in Expo Go.
 
 ## How to use the client
 
-1. Sign up with a user name and password
-2. Browse books
-3. Search books by author and title
-4. Filter books by category (genre)
-5. Press "Add Book" to add a new book
-6. Press a book in the list to view and edit the book's details or delete it.
+- Sign up with a user name and password
+- Browse books
+- Search books by author and title
+- Filter books by category (genre)
+- Press "Add Book" to add a new book
+- Press a book in the list to view and edit the book's details or delete it.
 
 ## Notes
 
