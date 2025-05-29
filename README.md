@@ -83,7 +83,7 @@ The app will open in Expo Go.
 3. Search books by author and title
 4. Filter books by category (genre)
 5. Press "Add Book" to add a new book
-6. Press a book in the list to view and edit the book's details
+6. Press a book in the list to view and edit the book's details or delete it.
 
 ## Notes
 
