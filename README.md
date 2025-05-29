@@ -119,3 +119,4 @@ The app will open in Expo Go.
 1. Offline support to add/edit books and sync when back online.
 2. Additional unit tests, E2E tests using Detox.
 3. Additional attention to accessibility
+4. Upload / associate images with books.
