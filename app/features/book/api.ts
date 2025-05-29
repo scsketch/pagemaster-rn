@@ -81,3 +81,16 @@ export async function updateBook(
   const res: AxiosResponse<Book> = await api.put(`/books/${id}`, bookData, config);
   return res.data;
 }
+
+/**
+ * Deletes a book by its ID
+ */
+export async function deleteBook(token: string | null, id: string): Promise<void> {
+  const config: any = {};
+
+  config.headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  await api.delete(`/books/${id}`, config);
+}

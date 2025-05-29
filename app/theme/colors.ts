@@ -10,7 +10,7 @@ export const colors = {
   text: {
     primary: '#1E293B', // Dark slate for primary text (WCAG AAA)
     secondary: '#475569', // Slate for secondary text (WCAG AA)
-    error: '#DC2626', // Red for errors (WCAG AA)
+    error: '#E53E3E', // Softer red for errors (WCAG AA)
     inverse: '#FFFFFF', // White text for dark backgrounds
   },
 
@@ -38,7 +38,7 @@ export const colors = {
   status: {
     success: '#059669', // Green for success states (WCAG AA)
     warning: '#D97706', // Orange for warnings (WCAG AA)
-    error: '#DC2626', // Red for errors (WCAG AA)
+    error: '#E53E3E', // Softer red for errors (WCAG AA)
     info: '#2563EB', // Blue for info (WCAG AA)
   },
 } as const;

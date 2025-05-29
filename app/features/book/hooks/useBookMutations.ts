@@ -5,7 +5,7 @@ import { AddBookData } from '../types';
 import { handleApiError } from '../../../api';
 
 /**
- * Hook for managing book mutations (add/update)
+ * Hook for managing book mutations (add/update/delete)
  */
 export const useBookMutations = () => {
   const { getToken } = useAuth();
@@ -45,10 +45,29 @@ export const useBookMutations = () => {
     },
   });
 
+  const { mutateAsync: deleteBook, error: deleteBookError } = useMutation({
+    mutationFn: async (id: string) => {
+      try {
+        const token = await getToken();
+        if (!token) throw new Error('Unauthorized');
+
+        // Delete the book
+        return await api.deleteBook(token, id);
+      } catch (error) {
+        return handleApiError(error, 'delete book');
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['books'] });
+    },
+  });
+
   return {
     addBook,
     updateBook,
+    deleteBook,
     addBookError,
     updateBookError,
+    deleteBookError,
   };
 };

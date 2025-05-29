@@ -22,6 +22,10 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.border.light,
   },
+  headerButtons: {
+    flexDirection: 'row',
+    gap: 16,
+  },
   editButton: {
     padding: 8,
   },
@@ -100,9 +104,26 @@ export default StyleSheet.create({
     borderRadius: Platform.OS === 'web' ? 8 : 0,
     alignItems: 'center',
     marginTop: Platform.OS === 'web' ? 24 : 0,
+    width: '100%',
   },
   saveButtonText: {
     ...typography.button,
     color: Platform.OS === 'web' ? colors.background : colors.primary,
+  },
+  deleteButton: {
+    backgroundColor: Platform.OS === 'web' ? colors.text.error : 'transparent',
+    padding: Platform.OS === 'web' ? 16 : 8,
+    borderRadius: Platform.OS === 'web' ? 8 : 0,
+    alignItems: 'center',
+    marginTop: Platform.OS === 'web' ? 8 : 0,
+    width: '100%',
+  },
+  deleteButtonText: {
+    ...typography.button,
+    color: Platform.OS === 'web' ? colors.background : '#EF4444',
+  },
+  buttonContainer: {
+    gap: 8,
+    marginTop: 24,
   },
 });
