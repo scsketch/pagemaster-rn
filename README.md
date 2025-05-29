@@ -2,8 +2,6 @@
 
 React-Native + Expo client for connecting to Pagemaster bookstore backend. Allows managing and viewing of books.
 
-<img width="1287" alt="image" src="https://github.com/user-attachments/assets/6ad08294-71b0-4d49-b0ec-ba840338fa58" />
-
 <img width="340" alt="image" src="https://github.com/user-attachments/assets/5cf2fb0f-c80d-4c70-b0fe-088bbee877fe" />
 
 ## Tools and Technology
