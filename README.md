@@ -18,8 +18,7 @@ React-Native + Expo client for connecting to Pagemaster bookstore backend. Allow
 
 ## Prerequisites
 
-- Node.js
-- npm
+- Node.js https://nodejs.org
 - Expo Go (optional to run on your phone - see below)
 
 ## Run the Application 
